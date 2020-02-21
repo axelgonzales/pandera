@@ -1,0 +1,84 @@
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="modal-basic-title">Agregar Intermedio</h5>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-sm-12">
+                    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+                        <!-- Checkbox Column -->
+                        <ng-container matColumnDef="select">
+                            <th mat-header-cell *matHeaderCellDef>
+                            <mat-checkbox (change)="$event ? masterToggle() : null"
+                                            [checked]="selection.hasValue() && isAllSelected()"
+                                            [indeterminate]="selection.hasValue() && !isAllSelected()"
+                                            [aria-label]="checkboxLabel()">
+                            </mat-checkbox>
+                            </th>
+                            <td mat-cell *matCellDef="let row">
+                            <mat-checkbox (click)="$event.stopPropagation()"
+                                            (change)="$event ? selection.toggle(row) : null"
+                                            [checked]="selection.isSelected(row)"
+                                            [aria-label]="checkboxLabel(row)">
+                            </mat-checkbox>
+                            </td>
+                        </ng-container>
+                        
+                        <!-- Position Column -->
+                        <ng-container matColumnDef="id">
+                            <th mat-header-cell *matHeaderCellDef> No. </th>
+                            <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+                        </ng-container>
+                        
+                        <!-- Name Column -->
+                        <ng-container matColumnDef="nombre">
+                            <th mat-header-cell *matHeaderCellDef> Intermedio </th>
+                            <td mat-cell *matCellDef="let element"> {{element.nombre}} </td>
+                        </ng-container>
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+                            (click)="selection.toggle(row)">
+                        </tr>
+                    </table>
+                    <mat-paginator [pageSizeOptions]="[10, 15, 20]" showFirstLastButtons></mat-paginator>
+                    <!-- <table class="panera-table" id="table_register">
+                        <thead>
+                            <tr>
+                                <th width="5%">#</th>
+                                <th width="90%">Intermedio</th>
+                                <th width="5%"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let intermedio of intermedios | slice: pageSizeIntermedio | slice: 0:itemsPerPageIntermedio ; let j = index" >
+                                <td>{{ (((currentPageIntermedio - 1) * 10 ) + j) + 1 }}</td>
+                                <td>{{ intermedio.nombre }}</td>
+                                <td>
+                                    <div *ngIf="intermedio.activo == '0'">
+                                        <input type="checkbox" id="activo" name="activo" (click)="seleccionoIntermedio(j)" />
+                                    </div>
+                                    <div *ngIf="intermedio.activo == '1'">
+                                        <input type="checkbox" id="activo" name="activo" checked (click)="seleccionoIntermedio(j)" />
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table> -->
+                </div>
+            </div>
+            <!-- <div class="row">
+                <div class="col-sm-12">
+                    <div class="panera-grid-pagination">
+                        <ngb-pagination [collectionSize]="intermedios.length" #numPages [pageSize]="itemsPerPageIntermedio" 
+                        [(page)]="currentPageIntermedio" (pageChange)="onPageChangeIntermedio(currentPageIntermedio)"></ngb-pagination>
+                    </div>
+                </div>
+            </div>                   -->
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-primary panera" data-dismiss="modal" (click)="guardarIntermedio()">Agregar Ingrediente</button>
+            <button type="button" class="btn btn-secondary panera" (click)="cerrar()">Cancelar</button>
+        </div>
+    </div>
+</div>

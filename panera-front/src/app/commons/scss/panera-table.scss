@@ -1,0 +1,46 @@
+.panera-table-title {
+  color: #b35d21;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.panera-table {
+  width: 100%;
+}
+
+.panera-table thead {
+  width: 100%;  
+}
+
+.panera-table thead tr {
+  width: 100%;
+  height: 28px;
+  background-color: #b35d21;
+}
+
+.panera-table thead th {  
+  color: #FFF;
+  text-align: center;
+}
+
+.panera-table tbody {
+  width: 100%;
+}
+
+.panera-table tbody tr {
+  width: 100%;
+  height: 20px;
+  border-bottom: 1px solid #ccc;  
+}
+
+.panera-table tbody td {
+  color: #000;
+}
+
+.panera-table tbody tr td {
+  text-align: center;
+}
+
+.panera-grid-pagination {
+  padding-top: 10px;
+}

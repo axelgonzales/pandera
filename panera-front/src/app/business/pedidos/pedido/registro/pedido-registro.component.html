@@ -1,0 +1,333 @@
+<section class="pull-main-content">
+  <div class="scroll-contenido">
+    <div class="content-body">
+      <div class="title-form">
+        <span>Pedido</span>
+      </div> 
+      <div class="box-wrap">
+        <div class="row">
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label>Tienda :</label>
+              <select id="cmbTienda" name="cmbTienda" class="form-control" [(ngModel)]="pedido.idTienda" [disabled]="!verTiendas" [hidden]="esEdicion">
+                <option value="0">---- Seleccione ----</option>
+                <option *ngFor="let tienda of tiendas" value="{{tienda.id}}">{{tienda.nombre}}</option>
+              </select>
+              <input type="text" id="txtNomTienda" name="txtNomTienda" class="form-control" [(ngModel)]="pedido.nomTienda" [hidden]="!esEdicion" readonly />
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="form-group" [hidden]="!esEdicion">
+              <label>Número :</label>
+              <input type="text" class="form-control"	id="codigo" name="codigo" [(ngModel)]="pedido.numPedido" readonly />
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="form-group" [hidden]="!esEdicion" >
+              <label>Estado :</label>
+              <input type="text" class="form-control" id="estado" name="estado" [(ngModel)]="pedido.nomEstado" readonly />
+            </div>
+          </div>
+        </div>             
+        <div class="row" [hidden]="!esPedidoEspecial">
+          <div class="col-sm-4">
+              <div class="form-group" >
+                  <label>Cliente :</label>
+                  <input type="text" class="form-control" id="cliente" name="cliente" [(ngModel)]="pedido.cliente"  />
+              </div>
+          </div>
+          <div class="col-sm-4">
+              <div class="form-group" >
+                  <label>Telefono :</label>
+                  <input type="text" class="form-control" id="telefono" name="telefono" [(ngModel)]="pedido.telefono"  />
+              </div>
+          </div>
+          <div class="col-sm-4">
+              <div class="form-group" >
+                  <label>Celular :</label>
+                  <input type="text" class="form-control" id="celular" name="celular" [(ngModel)]="pedido.celular"  />
+              </div>
+          </div>
+        </div>
+        <div class="row" [hidden]="!esPedidoEspecial">
+          <div class="col-sm-4">
+              <div class="form-group" >
+                  <label>Correo Electronico :</label>
+                  <input type="text" class="form-control" id="correo" name="correo" [(ngModel)]="pedido.email"  />
+              </div>
+          </div>
+        </div>
+        <div class="row" [hidden]="!esPedidoEspecial">
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label>Fecha Proceso :</label>
+              <div class="input-group">
+                <input type="text" class="form-control" ngbDatepicker #d1="ngbDatepicker" [(ngModel)]="fechaProceso"/>
+                <button class="input-group-addon" (click)="d1.toggle()" type="button">
+                  <img src="../../../../../assets/img/icons/calendar.png" style="width: 1.2rem; height: 1rem; cursor: pointer;"/>
+                </button>
+              </div>
+            </div>
+          </div>
+          <!--<div class="col-sm-4">
+            <div class="form-group">
+              <label>Hora Proceso Pedido :</label>
+              <input type="text" class="form-control" id="estado" name="estado" [(ngModel)]="pedido.hora_proceso"  />
+            </div>
+          </div>
+        </div>
+        <div class="row">
+        -->
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label>Fecha Entrega :</label>
+              <div class="input-group">
+                <input type="text" class="form-control" ngbDatepicker #d2="ngbDatepicker" [(ngModel)]="fechaEntrega"/>
+                <button class="input-group-addon" (click)="d2.toggle()" type="button">
+                  <img src="../../../../../assets/img/icons/calendar.png" style="width: 1.2rem; height: 1rem; cursor: pointer;"/>
+                </button>
+              </div>
+            </div>
+          </div><!--
+          <div class="col-sm-4">
+            <div class="form-group" [hidden]="!verCamposEsp">
+              <label>Hora Entrega Pedido :</label>
+              <input type="text" class="form-control" id="estado" name="estado" [(ngModel)]="pedido.hora_entrega"  />
+            </div>
+          </div>-->
+        </div>
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="panera-table-title">Productos</div>
+          </div>
+          <div class="col-sm-6">
+            <div class="form-group btns-bandeja" id="btns-bandeja">
+              <button type="button"class="btn btn-primary panera" (click)="agregarProducto(productoModal)" [hidden]="!verBtnAgregar">
+                Agregar Producto
+              </button>
+            </div>
+          </div>                    
+        </div>        
+        <div class="row">
+          <div class="col-sm-12">
+            <table class="panera-table">
+              <thead>
+                <tr>
+                  <th width="4%"></th>
+                  <th width="25%">Categoria</th>
+                  <th width="30%">Producto</th>
+                  <th width="10%">Cantidad</th>
+                  <th width="12%">Medida</th>
+                  <th width="13%">Estado</th>
+                  <th width="3%"></th>
+                  <th width="3%"></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let producto of productosPedido | slice: pageSize | slice: 0:itemsPerPage ; let i = index" >
+                  <td class="td-center">{{ (((currentPage-1) * 10 ) + i) + 1 }}</td>
+                  <td>{{ producto.nomCategoria }}</td>
+                  <td>{{ producto.nomProducto }}</td>
+                  <td>
+                    <div *ngIf="editarDetalle == true">
+                      <input class="form-control panera-input-number" type="text"  [(ngModel)]="producto.cantidad" [disabled]="!editarDetalle" />
+                    </div>
+                    <div *ngIf="editarDetalle == false">
+                      {{producto.cantidad}}
+                    </div>
+                  </td>
+                  <td>
+                    <div *ngIf="editarDetalle == true">
+                      <select id="idMedida" name="idMedida" class="panera-select" [(ngModel)]="producto.idMedida" [disabled]="!editarDetalle">
+                        <option value="0">---- Seleccione ----</option>
+                        <option *ngFor="let medida of medidas" value="{{medida.id}}">{{medida.nombre}}</option>
+                      </select>
+                    </div>
+                    <div *ngIf="editarDetalle == false">
+                      {{producto.nomMedida}}
+                    </div>
+                  </td>
+                  <td>{{producto.nomEstado}}</td>
+                  <td class="td-center">
+                    <div class="panera-btn-edit" (click)="editarProducto(i, observacionModal)"></div>
+                  </td>
+                  <td class="td-center">
+                    <div class="panera-btn-delete" (click)="eliminarProducto(i)" [hidden]="!editarDetalle"></div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="pagination-list panera-grid-pagination">
+              <ngb-pagination [collectionSize]="productosPedido.length" #numPages [pageSize]="itemsPerPage" [(page)]="currentPage" (pageChange)="onPageChange(currentPage)"></ngb-pagination>
+            </div>
+          </div>
+        </div>        
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="form-group" id="btns-guardar">
+              <button id="btn-guardar" type="button" class="btn btn-primary panera" (click)="guardarPedido(successModal)" [hidden]="!verBtnGuardar">
+                Registrar Pedido
+              </button>
+              <button type="button" class="btn btn-primary panera" (click)="solicitarPedido(successModal)" [hidden]="!verBtnSolicitar">
+                Solicitar Pedido
+              </button>
+              <button type="button" class="btn btn-primary panera" (click)="procesarPedido(successModal)"[hidden]="!verBtnProcesar">
+                Procesar Pedido
+              </button>
+              <button type="button" class="btn btn-secondary " (click)="cancelar(modalConfirmacion)" [hidden]="!verBotones">
+                Cancelar
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<ng-template #modalConfirmacion let-modal>
+  <div id="success_tic">
+    <div class="page-body">
+      <div id="svgWarning">
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130.2 130.2">
+          <circle class="path circle" fill="none" stroke="#fafa2d" stroke-width="6" stroke-miterlimit="10"
+                  cx="65.1" cy="65.1" r="62.1" />
+          <line class="path line" fill="none" stroke="#ffea30" stroke-width="6" stroke-linecap="round"
+                stroke-miterlimit="10" x1="34.4" y1="37.9" x2="95.8" y2="92.3" />
+          <line class="path line" fill="none" stroke="#ffea30" stroke-width="6" stroke-linecap="round"
+                stroke-miterlimit="10" x1="95.8" y1="38" x2="34.4" y2="92.2" />
+        </svg>
+      </div>
+      <p>{{result}}</p>
+      <div style="text-align: center;">
+        <button type="button" class="btn btn-primary panera" (click)="salir(modalConfirmacion)">Aceptar</button>
+        <button type="button" class="btn btn-primary panera" (click)="modal.dismiss('Cross click')">Cancelar</button>
+      </div>
+      <br />
+    </div>
+  </div>
+</ng-template>
+<ng-template #successModal let-modal>
+  <div id="success_tic">
+    <div class="page-body">
+      <div id="svgSuccess">
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130.2 130.2">
+          <circle class="path circle" fill="none" stroke="#73AF55" stroke-width="6" stroke-miterlimit="10" cx="65.1" cy="65.1" r="62.1"/>
+          <polyline class="path check" fill="none" stroke="#73AF55" stroke-width="6" stroke-linecap="round" stroke-miterlimit="10" points="100.2,40.2 51.5,88.8 29.8,67.5 "/>
+        </svg>
+      </div>
+      <div id="svgError">
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130.2 130.2">
+          <circle class="path circle" fill="none" stroke="#D06079" stroke-width="6" stroke-miterlimit="10" cx="65.1" cy="65.1" r="62.1"/>
+          <line class="path line" fill="none" stroke="#D06079" stroke-width="6" stroke-linecap="round" stroke-miterlimit="10" x1="34.4" y1="37.9" x2="95.8" y2="92.3"/>
+          <line class="path line" fill="none" stroke="#D06079" stroke-width="6" stroke-linecap="round" stroke-miterlimit="10" x1="95.8" y1="38" x2="34.4" y2="92.2"/>
+        </svg>
+      </div>
+      <p id="successMessage"></p>
+      <div style="text-align: center;">
+        <button type="button" class="btn btn-primary panera" (click)="modal.dismiss('Cross click')">Aceptar</button>
+      </div>
+      <br />
+    </div>
+  </div>
+</ng-template>
+<ng-template #productoModal let-modal>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modal-basic-title">Agregar Producto</h5>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label>Tipo Categoria:</label>
+              <select id="cmbTipoCategoria" name="cmbTipoCategoria" class="form-control" [(ngModel)]="idTipoCategoria" (change)="listarCategorias();" >
+                <option value="0">---- Seleccione ----</option>
+                <option *ngFor="let tipoCategoria of tipoCategorias" value="{{tipoCategoria.id}}">{{tipoCategoria.nombre}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label>Categoria :</label>
+              <select id="cmbCategoria" name="cmbCategoria" class="form-control" [(ngModel)]="idCategoria" (change)="listarProductos();">
+                <option value="0">---- Seleccione ----</option>
+                <option *ngFor="let categoria of categorias" value="{{categoria.id}}">{{categoria.nombre}}</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12">
+            <table class="panera-table">
+              <thead>
+                <tr>
+                  <th width="3%" class="td-center">#</th>
+                  <th width="25%">Categoria</th>
+                  <th width="25%">Producto</th>
+                  <th width="2%"></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let producto of productos | slice: pageSizeProducto | slice: 0 : itemsPerPageProducto ; let j = index" >
+                  <td >{{ (((currentPageProducto - 1) * 10 ) + j) + 1 }}</td>
+                  <td>{{ producto.nomCategoria }}</td>
+                  <td>{{ producto.nombre }}</td>
+                  <td>
+                    <div *ngIf="producto.activo == '1'">
+                      <input type="checkbox" id="activo" name="activo" checked (click)="seleccionarProducto(producto.id)" />
+                    </div>
+                    <div *ngIf="producto.activo == '0' || producto.activo == undefined">
+                      <input type="checkbox" id="activo" name="activo" (click)="seleccionarProducto(producto.id)" />
+                    </div>                    
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="panera-grid-pagination">
+              <ngb-pagination [collectionSize]="productos.length" #numPages [pageSize]="itemsPerPageProducto" [(page)]="currentPageProducto" (pageChange)="onPageChangeProducto(currentPageProducto)"></ngb-pagination>
+            </div>
+          </div>
+        </div>          
+      </div>
+      <div class="modal-footer">
+        <div class="row">
+          <div class="col-sm-12">        
+            <button type="button" class="btn btn-primary panera" data-dismiss="modal" (click)="agregarProductos()">Agregar Productos</button>
+            <button type="button" class="btn btn-secondary panera" data-dismiss="modal" (click)="modal.dismiss('Cross click')">Cerrar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+<ng-template #observacionModal let-modal>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modal-basic-title">Descripcion Pedido Especial</h5>
+        <button type="button" class="close" (click)="modal.dismiss('Cross click')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="form-group">
+              <textarea name="txtObservacion" id="txtObservacion" cols="30" rows="5" class="form-control" [(ngModel)]="descripcion"></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary panera" data-dismiss="modal" (click)="guardarDescripcion()">Guardar</button>
+      </div>
+    </div>
+  </div>
+</ng-template>

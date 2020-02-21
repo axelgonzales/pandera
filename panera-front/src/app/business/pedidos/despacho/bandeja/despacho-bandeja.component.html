@@ -1,0 +1,82 @@
+<section class="pull-main-content">
+    <div class="scroll-contenido">
+        <div class="content-body">
+            <div class="title-form">
+                <span>Bandeja de Despachos</span>
+            </div>     
+            <div class="box-wrap">     
+                <div class="row">                
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label>Nro. Despacho :</label>
+                            <input type="text" class="form-control"	id="numDespacho" name="numDespacho" [(ngModel)]="numDespacho" maxlength="50" />
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">  
+                            <label>Fecha Despacho :</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" ngbDatepicker #d3="ngbDatepicker" [(ngModel)]="fechaDespacho" readonly />
+                                <button class="input-group-addon" (click)="d3.toggle()" type="button">
+                                    <img src="../../../../../assets/img/icons/calendar.png" class="panera-icon-date" />
+                                </button>
+                            </div>                              
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">                     
+                            <label>Estado :</label>
+                            <select id="cmbEstado" name="cmbEstado" class="form-control" [(ngModel)]="idEstado">
+                                <option value='0'>---- Todos ----</option>
+                                <option *ngFor="let estado of estados" value="{{estado.id}}">
+                                    {{estado.nombre}}
+                                </option>
+                            </select>
+                        </div>
+                    </div>    
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group btns-bandeja">
+                            <button type="button" class="btn btn-primary panera" (click)="buscarDespachos()">Buscar Despachos</button>&nbsp;
+                            <button type="button" class="btn btn-secondary" (click)="agregarDespacho()">Nuevo Despacho</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <table class="panera-table">
+                            <thead>
+                                <tr>
+                                    <th width="3%">#</th>
+                                    <th width="25%">Número</th>
+                                    <th width="15%">Fecha</th>
+                                    <th width="15%">Estado</th>
+                                    <th width="2%"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let despacho of despachos | slice: pageSize | slice: 0:itemsPerPage ; let i = index" >
+                                    <td>{{ (((currentPage - 1) * 10 ) + i) + 1 }}</td> 
+                                    <td>{{despacho.numDespacho}}</td>
+                                    <td>{{despacho.fechaDespacho}}</td>
+                                    <td>{{despacho.nomEstado}}</td>
+                                    <td>
+                                        <div class="panera-btn-edit" (click)="editarDespacho(despacho.id)"></div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="panera-grid-pagination">
+                            <ngb-pagination [collectionSize]="despachos.length" #numPages [pageSize]="itemsPerPage" [(page)]="currentPage" (pageChange)="onPageChange(currentPage)"></ngb-pagination>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,287 @@
+html, body {
+	width: 100%;
+	padding: 0;
+	margin: 0;
+	height: 100%;
+	overflow-x: hidden;
+	overflow-y: hidden;
+	font-family: "Segoe UI","Segoe",Tahoma,Helvetica,Arial,sans-serif;
+}
+.fullscreen {
+    width: 100%;
+    height: 100%;
+}
+.header{
+	color: #fff;
+	background: #b35d21;
+	  height: 50px;
+	  width: 100%;
+	  position: relative;
+	  z-index:100;
+	  -webkit-box-shadow: 0px 0px 2px 0px rgba(153,153,153,1);
+	  -moz-box-shadow: 0px 0px 2px 0px rgba(153,153,153,1);
+	box-shadow: 0px 0px 2px 0px rgba(153,153,153,1);  
+  }
+section .btn-show {
+	display: block;
+	width: 60px;
+	height: 50px;
+	//border-right: 1px solid #eaedf0;
+	margin-left: 15px;
+	margin-top: 10px;
+	//background: url('/assets/img/toogle.png') 1px -60px no-repeat;
+	cursor: pointer;
+}
+.header .corporativo{
+	vertical-align: top;
+	display: inline-block;
+	*display: inline;
+	zoom:1;
+}
+.header .corporativo .logo-app {
+	margin-left: 15px;
+	margin-top: 10px;
+	width: 150px;
+	height: 60px;
+	background: url('/assets/img/logo-monit.png') no-repeat;
+}
+.comp-btn-user .btn{
+	background: #f8f8f8;
+	height: 45px;
+	border: none;
+}
+.comp-btn-user .btn:active{
+	border: none;
+}
+.comp-btn-user .btn:hover{
+	border:none;
+}
+.comp-btn-user .btn:BEFORE{
+	background: #f8f8f8;
+	/*color:#ededed;*/
+}
+.comp-btn-user .btn .name{
+	color:#363a44;
+}
+
+/* Principal  */
+.wrap-content {
+  background-image: url("/assets/img/fondo_3_opt.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  display: block;
+  position: absolute;
+  left: 0px;
+  right: 0px;
+  bottom: 40px;
+  top: 50px;
+  z-index: 99;
+  -webkit-box-shadow: -7px 0px 32px -7px rgba(0,0,0,0.75);
+  -moz-box-shadow: -7px 0px 32px -7px rgba(0,0,0,0.75);
+  box-shadow: -7px 0px 32px -7px rgba(0,0,0,0.75);
+	.logo_movil{
+		width:24em;
+		margin:0 auto;
+		position: absolute;
+		display: block !important;
+		top: 50%;
+		transform: translateY(-50%);
+		z-index: 4;
+		left:25%;
+		right:25%;
+	}
+}
+.pull-main-content{
+//   overflow: auto;
+  height: 100%;
+  margin-left: 0px;
+  bottom: 100px;
+  z-index:5;
+  position:sticky;
+}
+.iframe-main-content{
+    width:100%;
+    margin: 0px;
+	border: 0px;
+	height: 100%;
+	overflow:hidden;
+	z-index: 5;
+}
+.pull-main-content .scroll-contenido{
+  background:#fff;
+  position:relative;
+  width:100%;
+  height: 100%;
+  overflow-x:hidden;
+  overflow-y:hidden;
+  margin-bottom: -50px;
+}
+.pull-main-content .content-body {
+  padding: 0px;
+  min-height: 500px;
+  height:100%;
+}
+
+/* Footer */
+.footer{
+  background: #b35d21;
+  height: 40px;
+	position: absolute;
+	left: 0px;
+	right: 0px;
+	bottom: 0px;
+	//background: #262626;
+	z-index: 150;
+  font-size: 12px;
+  font-family: "Gill Sans MT Condensed";
+  text-align: center;
+}
+.footer .copyright {
+	padding: 15px 0px 0px 15px;
+}
+
+.footer .copyright span {
+	color: #fff;
+}
+
+/* Fixed sidenav, full height */
+.sidenav {
+	height: 100%;
+	width: 270px;
+	margin-top: 35px;
+	position: fixed;
+	z-index: 1;
+	top: 0;
+	left: 0;
+	background-color: rgba(76, 57, 39, 0.65);
+	overflow-x: hidden;
+	padding-top: 20px;
+  }
+  
+  /* Style the sidenav links and the dropdown button */
+  .sidenav a, .dropdown-btn {
+	padding: 15px 8px 17px 14px;
+	text-decoration: none;
+	color: #fff;
+	font-size:15px;
+	display: block;
+	border: none;
+	background: none;
+	width: 100%;
+	text-align: left;
+	cursor: pointer;
+	outline: none;
+  }
+  
+  /* On mouse-over */
+  .sidenav a:hover, .dropdown-btn:hover {
+	color: #f1f1f1;
+  }
+  
+  /* Main content */
+  .main {
+	margin-left: 200px; /* Same as the width of the sidenav */
+	font-size: 20px; /* Increased text to enable scrolling */
+	padding: 0px 10px;
+  }
+  
+  /* Add an active class to the active dropdown button */
+  .active {
+	// background-color: green;
+	color: white;
+  }*
+  
+  /* Dropdown container (hidden by default). Optional: add a lighter background color and some left padding to change the design of the dropdown content */
+  .dropdown-container {
+	display: none;
+	background-color: #262626;
+	padding-left: 8px;
+  }
+  
+  /* Optional: Style the caret down icon */
+  .fa-caret-down {
+	float: right;
+	padding-right: 8px;
+  }
+  
+  /* Some media queries for responsiveness */
+  @media screen and (max-height: 450px) {
+	.sidenav {padding-top: 15px;}
+	.sidenav a {font-size: 18px;}
+  }
+
+  .icon-menu{
+	  width:35px;
+	  margin-right:8px;
+  }
+  
+  .fa-caret-down{
+	padding-top: 9px;
+  }
+
+  #title-menu2{
+	  display:none;
+  }
+
+  @media screen and (max-width: 1024px) {
+	.logo_movil{
+		width:24em !important;
+		margin:0 auto;
+		position: absolute;
+		display: block !important;
+		top: 50%;
+		transform: translateY(-50%);
+		z-index: 4;
+		left:25%;
+		right:25%;
+	}
+  }
+  
+  @media screen and (max-width: 814px) {
+	.logo_movil{
+		width:12em !important;
+		margin:0 auto;
+		position: absolute;
+		display: block !important;
+		top: 50%;
+		transform: translateY(-50%);
+		z-index: 4;
+		left:25%;
+		right:25%;
+	}
+
+	#title-menu{
+		display: none;
+	}
+
+	#title-menu2{
+		height: 57px;
+		display: block;
+		width: 270px;
+		margin-top: 50px;
+		position: fixed;
+		z-index: 1;
+		color: white;
+		top: 0;
+		left: 0;
+		text-align: center;
+		background-color: #212529;
+		overflow-x: hidden;
+		padding-top: 20px;
+	}
+
+	.sidenav {
+		margin-top: 107px !important;
+		padding-top: 0px !important;
+	}
+
+  }
+
+  .textmenu{
+	  color: white;
+  }
+  .imgmenu{
+	margin-right: 5px;
+	width:30px; 
+	height:30px; 
+	}

@@ -1,0 +1,98 @@
+<section class="pull-main-content">
+    <div class="scroll-contenido">
+        <div class="content-body">
+            <div class="title-form">
+                <span>Ingreso de Productos</span>
+            </div>    
+            <div class="box-wrap">      
+                <div class="row">
+                    <!--<div class="col-sm-4">
+                        <div class="form-group">
+                            <label>Tipo Ingreso :</label>
+                            <select id="cmbTipoIngreso" name="cmbTipoIngreso" class="form-control" [(ngModel)]="idTipoIngreso">
+                                <option value='0'>---- Todos ----</option>
+                                <option *ngFor="let tipoIngreso of tipoIngresos" value="{{tipoIngreso.id}}">{{tipoIngreso.nombre}}</option>
+                            </select>
+                        </div>
+                    </div>-->
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label>Nro. Pedido</label>
+                            <input type="text" class="form-control" id="numPedido" name="numPedido" [(ngModel)]="numPedido" />
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">  
+                            <label>Fecha :</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" ngbDatepicker #d="ngbDatepicker" [(ngModel)]="fecha" readonly/>
+                                <button class="input-group-addon" (click)="d.toggle()" type="button">
+                                    <img src="../../../../../../assets/img/icons/calendar.png" style="width: 1.2rem; height: 1rem; cursor: pointer;"/>
+                                </button>
+                            </div>                              
+                        </div>
+                    </div>  
+                <!--</div>
+                <div class="row">-->
+                    <div class="col-sm-4">
+                        <div class="form-group">                     
+                            <label>Estado :</label>
+                            <select id="cmbEstado" name="cmbEstado" class="form-control" [(ngModel)]="idEstado">
+                                <option value='0'>---- Todos ----</option>
+                                <option *ngFor="let estado of estados" value="{{estado.id}}">
+                                    {{estado.nombre}}
+                                </option>
+                            </select>
+                        </div>
+                    </div>                                        
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group btns-bandeja" id="btns-bandeja">
+                            <button type="button" class="btn btn-primary panera" (click)="buscarIngresoProductos()">Buscar</button>&nbsp;
+                            <!--button type="button" class="btn btn-secondary" (click)="agregarIngresoProducto()">Nuevo</button>-->
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <table class="panera-table">
+                            <thead>
+                                <tr>
+                                    <th width="3%" class="td-center">#</th>
+                                    <th width="30%">Tipo</th>
+                                    <th width="30%">Nro. Pedido</th>
+                                    <th width="15%">Fecha Ingreso</th>
+                                    <th width="20%">Estado</th>
+                                    <th width="2%"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let productoIngreso of productoIngresos | slice: pageSize | slice: 0:itemsPerPage ; let i = index " >
+                                    <td class="td-center">{{ (((currentPage-1) * 10 ) + i) + 1 }}</td>
+                                    <td>{{productoIngreso.nomTipo}}</td>
+                                    <td>{{productoIngreso.numPedido}}</td>
+                                    <td>{{productoIngreso.fechaIngreso}}</td>
+                                    <td>{{productoIngreso.nomEstado}}</td>
+                                    <td class="td-center">
+                                        <div class="panera-btn-edit" (click)="editarIngresoProducto(productoIngreso.id)"></div>                                
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div *ngIf="inBusqueda === true" class="panera-grid-pagination">
+                            <ngb-pagination [collectionSize]="productoIngresos.length" #numPages [pageSize]="itemsPerPage" [(page)]="currentPage" (pageChange)="onPageChange(currentPage)"></ngb-pagination>
+                        </div>
+                    </div>
+                </div>              
+            </div>
+        </div>
+    </div>
+</section>
+<div class="box-loading" [hidden]="!loading">
+    <img src="../../../../../../assets/img/loading.gif" />
+</div>

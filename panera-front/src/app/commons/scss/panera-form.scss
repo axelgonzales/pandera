@@ -1,0 +1,38 @@
+.panera-input-number {
+    width: 100%;
+    height: 26px;
+    text-align: center;
+}
+
+.panera-selet {
+    width: 100%;
+    height: 26px;
+}
+
+.panera-icon-date {
+    width: 1.2rem;
+    height: 1rem; 
+    cursor: pointer;
+}
+
+.panera-btn-edit{
+    width: 16px;
+    height: 16px;
+    border: 0;
+    background-image: url(src/assets/img/icons/edit.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    cursor: pointer;
+}
+
+.panera-btn-delete{
+    width: 16px;
+    height: 16px;
+    border: 0;
+    background-image: url(src/assets/img/icons/delete.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    cursor: pointer;
+}

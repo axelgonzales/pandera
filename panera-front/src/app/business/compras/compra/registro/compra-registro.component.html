@@ -1,0 +1,272 @@
+<section class="pull-main-content">
+    <div class="scroll-contenido">
+        <div class="content-body">
+            <div class="title-form">
+                <span>Compra</span>
+            </div>    
+            <div class="box-wrap">       
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label>Proveedor :</label>
+                            <select id="idProveedor" name="idProveedor" class="form-control" [(ngModel)]="compra.idProveedor">
+                                <option value='0'>---- Seleccionar ----</option>
+                                <option *ngFor="let proveedor of proveedores" value="{{proveedor.id}}">{{proveedor.razonSocial}}</option>
+                            </select> 
+                        </div>            
+                    </div>
+                    <div class="col-sm-4" [hidden]="!verCamposRegistro">
+                        <div class="form-group">
+                            <label>Tipo Documento :</label>
+                            <select id="idTipoDocumento" name="idTipoDocumento" class="form-control" [(ngModel)]="compra.idTipoDocumento" [hidden]="!verCamposRegistro">
+                                <option value='0'>---- Seleccionar ----</option>
+                                <option *ngFor="let tipoDocumento of tipoDocumentos" value="{{tipoDocumento.id}}">{{tipoDocumento.nombre}}</option>
+                            </select>
+                        </div>            
+                    </div>
+                    <div class="col-sm-4" [hidden]="!verCamposRegistro">
+                        <div class="form-group">
+                            <label>Nro Documento :</label>
+                            <app-input-number ngDefaultControl  id="documento" name="documento" 
+                            [(ngModel)]="compra.documento" [valueParent]="compra.documento">
+
+                            </app-input-number>
+                            
+                        </div>    
+                    </div>                                                  
+                </div>
+                <div class="row">              
+                    <div class="col-sm-4" [hidden]="!verCamposRegistro">
+                        <div class="form-group">
+                            <label>Nro de Serie :</label>
+
+                            <app-input-number ngDefaultControl  id="serie" name="serie" 
+                            [(ngModel)]="compra.serie" [valueParent]="compra.serie">
+
+                            </app-input-number>
+                        </div>
+                    </div>         
+                    <div class="col-sm-4">
+                        <div class="form-group" [hidden]="!verCamposRegistro">
+                            <label>Condición de Pago :</label>
+                            <select id="idCondicionPago" name="idCondicionPago" class="form-control" [(ngModel)]="compra.idCondicionPago">
+                                <option value='0'>---- Seleccionar ----</option>
+                                <option *ngFor="let condicionPago of condicionPagos" value="{{condicionPago.id}}">{{condicionPago.nombre}}</option>
+                            </select>
+                        </div>    
+                    </div>                                  
+                    <div class="col-sm-4">
+                        <div class="form-group" [hidden]="!verCamposRegistro">
+                            <label>Fecha Emision :</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" ngbDatepicker #d="ngbDatepicker" [(ngModel)]="fechaEmision" readonly/>
+                                <button class="input-group-addon" (click)="d.toggle()" type="button">
+                                    <img src="../../../../../assets/img/icons/calendar.png" style="width: 1.2rem; height: 1rem; cursor: pointer;"/>
+                                </button>
+                            </div>                               
+                        </div>
+                    </div>                                 
+                </div>
+                <div class="row">
+                    <div class="col-sm-4" [hidden]="!verCamposRegistro">
+                        <div class="form-group">
+                            <label>Fecha Cancelacion :</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" ngbDatepicker #p="ngbDatepicker" [(ngModel)]="fechaCancelacion" readonly/>
+                                <button class="input-group-addon" (click)="p.toggle()" type="button">
+                                    <img src="../../../../../assets/img/icons/calendar.png" style="width: 1.2rem; height: 1rem; cursor: pointer;"/>
+                                </button>
+                            </div>                               
+                        </div>            
+                    </div>                        
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <h4>Insumos</h4>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group btns-bandeja" id="btns-bandeja">
+                            <button class="btn btn-primary panera" (click)="agregarInsumo(contentModal)" [hidden]="!verBtnAgregar">Agregar Insumos</button>
+                        </div>                        
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <table class="panera-table">
+                            <thead>
+                                <tr>
+                                    <th width="3%">Nro</th>
+                                    <th width="55%">Insumo</th>
+                                    <th width="10%">Marca</th>
+                                    <th width="10%">PrecioUnitario</th>
+                                    <th width="10%">Cantidad</th>
+                                    <th width="10%">Precio Total</th>
+                                    <th width="2%"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let compraDetalle of compraDetalles ; let i = index " >
+                                    <td>{{ (((currentPage-1) * 10 ) + i) + 1 }}</td>
+                                    <td>{{compraDetalle.nomInsumo}}</td>
+                                    <td>
+                                        <select id="idMarca" name="idMarca" class="panera-select" [(ngModel)]="compraDetalle.idMarca">
+                                            <option value='0'>---- Seleccione ----</option>
+                                            <option *ngFor="let marca of marcas" value="{{marca.id}}">
+                                                {{marca.nombre}}
+                                            </option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form-control panera-input-number" 
+                                        [(ngModel)]="compraDetalle.precioUnitario"
+                                        
+                                        (keypress)=keyPressPrecio($event,compraDetalle.precioUnitario)  />
+                                        <label style="color: #ff0000;" 
+                                        *ngIf="numericoPrecio">
+                                            Solo se permiten números
+                                        </label>
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form-control panera-input-number" 
+                                        [(ngModel)]="compraDetalle.cantidad"
+                                        (keypress)="keyPressCantidad($event,compraDetalle.cantidad)"  />
+                                    </td>
+                                    <td>{{compraDetalle.precioUnitario * compraDetalle.cantidad}}</td>
+                                    <td>
+                                        <div class="panera-btn-delete" (click)="eliminarInsumoCompra(i)"></div>                                      
+                                    </td>                                    
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="panera-grid-pagination">
+                            <ngb-pagination [collectionSize]="compraDetalles.length" #numPages [pageSize]="itemsPerPage" [(page)]="currentPage" (pageChange)="onPageChange(currentPage)"></ngb-pagination>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group float-left" id="btns-guardar">
+                            <button type="button" id="btn-guardar" class="btn btn-primary panera" (click)="guardarCompra(successModal)" [hidden]="!verBtnGuardar">
+                                Registrar Compra
+                            </button>
+                            <button type="button" id="btn-guardar" class="btn btn-primary panera" (click)="pedirCompra(successModal)" [hidden]="!verBtnPedir">
+                                Solicitar Compra
+                            </button>                            
+                            <button type="button" class="btn btn-primary panera" (click)="almacenarCompra(successModal)" [hidden]="!verBtnAlmacenar">
+                                Enviar Almacen
+                            </button>
+                            <button type="button" class="btn btn-secondary " (click)="cancelar()">Cancelar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> 
+</section>
+
+<ng-template #successModal let-modal>
+    <div id="success_tic">
+        <div class="page-body">
+            <div id="svgSuccess">
+            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130.2 130.2">
+                <circle class="path circle" fill="none" stroke="#73AF55" stroke-width="6" stroke-miterlimit="10" cx="65.1" cy="65.1" r="62.1"/>
+                <polyline class="path check" fill="none" stroke="#73AF55" stroke-width="6" stroke-linecap="round" stroke-miterlimit="10" points="100.2,40.2 51.5,88.8 29.8,67.5 "/>
+            </svg>
+            </div>
+            <div id="svgError">
+            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130.2 130.2">
+                <circle class="path circle" fill="none" stroke="#D06079" stroke-width="6" stroke-miterlimit="10" cx="65.1" cy="65.1" r="62.1"/>
+                <line class="path line" fill="none" stroke="#D06079" stroke-width="6" stroke-linecap="round" stroke-miterlimit="10" x1="34.4" y1="37.9" x2="95.8" y2="92.3"/>
+                <line class="path line" fill="none" stroke="#D06079" stroke-width="6" stroke-linecap="round" stroke-miterlimit="10" x1="95.8" y1="38" x2="34.4" y2="92.2"/>
+            </svg>            
+            </div>
+            <p id="successMessage"></p>
+            <div style="text-align: center;">
+                <button type="button" class="btn btn-primary panera" (click)="modal.dismiss('Cross click')">Aceptar</button>
+            </div>
+            <br />
+        </div>
+    </div>
+</ng-template>   
+
+<!-- The Modal -->
+<ng-template #contentModal let-modal>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h5 class="modal-title" id="modal-basic-title">Agregar Insumo</h5>
+            </div>
+            <!-- Modal body -->
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Tipo categoría :</label>
+                            <select id="idTipoCategoria" name="idTipoCategoria" class="form-control" [(ngModel)]="idTipoCategoria" (change)="listarCategorias()">
+                                <option value='0'>---- Seleccione ----</option>
+                                <option *ngFor="let tipoCategoria of tipoCategorias" value="{{tipoCategoria.id}}">
+                                    {{tipoCategoria.nombre}}    
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Categoria :</label>
+                            <select id="cmbCategoria" name="cmbCategoria" class="form-control" [(ngModel)]="idCategoria" (change)="listarInsumos()">
+                                <option value='0'>---- Seleccione ----</option>
+                                <option *ngFor="let categoria of categorias" value="{{categoria.id}}">
+                                    {{categoria.nombre}}
+                                </option>
+                            </select>
+                        </div>      
+                    </div>                    
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <table class="panera-table">
+                            <thead>
+                                <tr>
+                                    <th width="3%">#</th>
+                                    <th width="95%">Insumo</th>
+                                    <th width="2%"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let insumo of insumos | slice: pageSizeInsumo | slice: 0:itemsPerPageInsumo; let j = index ">
+                                    <td>{{ (((currentPage - 1) * 10 ) + j) + 1 }}</td>
+                                    <td>{{ insumo.nombre }}</td>
+                                    <td>
+                                        <div *ngIf="insumo.activo == '0'">
+                                            <input type="checkbox" id="activo" name="activo" (click)="seleccionoInsumo(j)" />
+                                        </div>
+                                        <div *ngIf="insumo.activo == '1'">
+                                            <input type="checkbox" id="activo" name="activo" checked (click)="seleccionoInsumo(j)" />
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="panera-grid-pagination">
+                            <ngb-pagination [collectionSize]="insumos.length" #numPages [pageSize]="itemsPerPageInsumo" [(page)]="currentPageInsumo" (pageChange)="onPageChangeInsumo(currentPageInsumo)"></ngb-pagination>
+                        </div>
+                    </div>
+                </div>                   
+            </div>
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary panera" data-dismiss="modal" (click)="agregarInsumos()">Agregar Insumos</button>
+                <button type="button" class="btn btn-secondary paner" data-dismiss="modal" (click)="modal.dismiss('Cross click')">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</ng-template>

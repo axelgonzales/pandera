@@ -1,0 +1,117 @@
+<section class="pull-main-content">
+    <div class="scroll-contenido">
+        <div class="content-body">
+            <div class="title-form">
+				<span>Bandeja de Compras</span>
+            </div>     
+            <div class="box-wrap">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                                <label>Proveedor :</label>
+                                <select id="cmbProveedor" name="cmbProveedor" class="form-control" [(ngModel)]="idProveedor">
+                                    <option value='0'>---- Todos ----</option>
+                                    <option *ngFor="let proveedor of proveedores" value="{{proveedor.id}}">{{proveedor.razonSocial}}</option>
+                                </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                                <label>Tipo de documento :</label>
+                                <select id="cmbTipoDocumento" name="cmbTipoDocumento" class="form-control" [(ngModel)]="idTipoDocumento">
+                                    <option value='0'>---- Todos ----</option>
+                                    <option *ngFor="let tipoDocumento of tipoDocumentos" value="{{tipoDocumento.id}}">{{tipoDocumento.nombre}}</option>
+                                </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label>Nro. de Documento :</label>
+                            <app-input-number  ngDefaultControl id="documento" name="documento" 
+                                [valueParent]="documento" placeholder="Nro. de Documento"  [(ngModel)]="documento" ></app-input-number>
+                           
+                        </div>
+                    </div>                    
+                </div>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                                <label>Nro. Serie :</label>
+                                <app-input-number  ngDefaultControl id="nroSerie" name="nroSerie" 
+                                [valueParent]="serie" placeholder="Nro. Serie"  [(ngModel)]="serie" ></app-input-number>
+                        </div>
+                    </div>                    
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label>Fecha :</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" ngbDatepicker #d="ngbDatepicker" [(ngModel)]="fecha" readonly/>
+                                <button class="input-group-addon" (click)="d.toggle()" type="button">
+                                    <img src="../../../../../assets/img/icons/calendar.png" style="width: 1.2rem; height: 1rem; cursor: pointer;"/>
+                                </button>
+                            </div>                                         
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label>Estado :</label>
+                            <select id="cmbTipo de documento" name="cmbTipo de documento" class="form-control" [(ngModel)]="idEstado">
+                                <option value='0'>---- Todos ----</option>
+                                <option *ngFor="let estado of estados" value="{{estado.id}}">{{estado.nombre}}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group btns-bandeja" id="btns-bandeja">
+                            <button type="button" class="btn btn-primary panera" (click)="buscarCompras()">Buscar Compras</button>&nbsp;
+                            <button type="button" class="btn btn-secondary" (click)="agregarCompra()">Nueva Compra</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <table class="panera-table">
+                            <thead>
+                                <tr>
+                                    <th width="3%" class="td-center">#</th>
+                                    <th width="20%">Proveedor</th>
+                                    <th width="15%">Nro Serie</th>
+                                    <th width="15%">Tipo Documento</th>
+                                    <th width="10%">Nro Documento</th>
+                                    <th width="10%">Fecha Emision</th>
+                                    <th width="10%">Precio Total</th>
+                                    <th width="10%">Estado</th>
+                                    <th width="2%"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let compra of compras | slice: pageSize | slice: 0:itemsPerPage ; let i = index " >
+                                    <td class="td-center">{{ (((currentPage-1) * 10 ) + i) + 1 }}</td>    
+                                    <td>{{compra.nomProveedor}}</td>
+                                    <td>{{compra.serie}}</td>
+                                    <td>{{compra.nomTipoDocumento}}</td>
+                                    <td>{{compra.documento}}</td>
+                                    <td>{{compra.fechaEmision}}</td>
+                                    <td>{{compra.precioTotal}}</td>
+                                    <td>{{compra.nomEstado}}</td>
+                                    <td class="td-center">
+                                        <div class="panera-btn-edit" (click)="editarCompra(compra.id)"></div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div *ngIf="inBusqueda === true" class="panera-grid-pagination">
+                            <ngb-pagination [collectionSize]="compras.length" #numPages [pageSize]="itemsPerPage" [(page)]="currentPage" (pageChange)="onPageChange(currentPage)"></ngb-pagination>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

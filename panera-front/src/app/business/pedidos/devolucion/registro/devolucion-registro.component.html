@@ -1,0 +1,158 @@
+<section class="pull-main-content">
+    <div class="scroll-contenido">
+        <div class="content-body">
+            <div class="title-form">
+                <span>Mantenimiento de Devoluciones</span>
+            </div>     
+            <div class="box-wrap">                
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label>Nro Devolución :</label>
+                            <input type="text" class="form-control"	id="numero" name="numero"  maxlength="50" [(ngModel)]="devolucion.numDevolucion" />
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label>Fecha Despacho :</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" ngbDatepicker #d3="ngbDatepicker" [(ngModel)]="fechaDevolucion" readonly />
+                                <button class="input-group-addon" (click)="d3.toggle()" type="button" [hidden]="verEdicion">
+                                    <img src="../../../../../assets/img/icons/calendar.png" class="panera-icon-date"/>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4" [hidden]="!verEdicion">
+                        <div class="form-group">
+                            <label>Estado :</label>
+                            <input type="text" class="form-control"	id="nomEstado" name="nomEstado" [(ngModel)]="devolucion.nomEstado" readonly />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label>Tienda :</label>
+                            <input type="text" class="form-control"	id="nomTienda" name="nomTienda" [(ngModel)]="devolucion.nomTienda" readonly />
+                        </div>            
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label>Nro Pedido :</label>
+                            <input type="text" class="form-control"	id="numPedido" name="numPedido"  maxlength="50" [(ngModel)]="devolucion.numPedido" />
+                        </div>    
+                    </div>                    
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label>Observación :</label>
+                            <input type="text" class="form-control"	id="observacion" name="observacion"  maxlength="50" [(ngModel)]="devolucion.observacion" />
+                        </div>
+                    </div>                   
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <h3>Productos</h3>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group btns-bandeja" id="btns-bandeja">
+                            <button type="button" class="btn btn-primary panera" (click)="agregarProducto(modalProducto)" [hidden]="!verBtnAgregar">Agregar Producto</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <table class="panera-table">
+                            <thead>
+                                <tr>
+                                    <th width="6%" class="td-center">#</th>
+                                    <th width="30%">Producto</th>
+                                    <th width="20%">Nro. Pedido</th>
+                                    <th width="10%">Costo</th>
+                                    <th width="10%">Cantidad</th>
+                                    <th width="20%">Estado</th>
+                                    <th width="2%"></th>
+                                    <th width="2%"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group float-left">
+                        <button type="button" class="btn btn-primary panera">Registrar</button>&nbsp;
+                        <button type="button" class="btn btn-secondary " (click)="cancelar()">Cancelar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- The Modal -->
+<ng-template #modalProducto let-modal>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modal-basic-title">Agregar Detalle</h5>
+                    <button type="button" class="close" (click)="modal.dismiss('Cross click')">&times;</button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>Tipo Categoria Producto:</label>
+                        <select id="cmbtipocatp" name="cmbtipocatp" class="form-control">
+                            <option>Tipo 1</option>
+                            <option>Tipo 2</option>
+                        </select>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label>Categoria Producto :</label>
+                        <select id="cmbtipocatp" name="cmbtipocatp" class="form-control">
+                            <option>Categoria 1</option>
+                            <option>Categoria 2</option>
+                        </select>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label>Producto :</label>
+                        <select id="cmbtipocatp" name="cmbtipocatp" class="form-control">
+                            <option>Producto 1</option>
+                            <option>Producto 2</option>
+                        </select>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <label>Precio :</label>
+                            <input type="number" class="form-control" id="precio" name="precio"
+                                placeholder="Precio" maxlength="50" />
+                        </div>
+                        <div class="col-sm-6">
+                            <label>Cantidad :</label>
+                            <input type="number" class="form-control" id="cantidad" name="cantidad"
+                                placeholder="Cantidad" maxlength="50" />
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" data-dismiss="modal">Agregar</button>
+                </div>
+
+            </div>
+        </div>
+    </ng-template>

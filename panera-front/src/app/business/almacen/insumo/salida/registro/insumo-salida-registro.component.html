@@ -1,0 +1,119 @@
+<section class="pull-main-content">
+    <div class="scroll-contenido">
+        <div class="content-body">
+            <div class="title-form">
+                <span>Salida de Insumo</span>
+            </div>     
+            <div class="box-wrap">     
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label>Tipo de Salida :</label>
+                            <select id="cmbTipoIng" name="cmbTipoIng" class="form-control"  [(ngModel)]="insumoSalida.idTipo" readonly>
+                                <option value="0">---- Seleccione ----</option>
+                                <option *ngFor="let tipoSalida of tipoSalidas" value="{{tipoSalida.id}}">{{tipoSalida.nombre}}</option>
+                            </select>
+                        </div>            
+                    </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label>Nro. Pedido :</label>
+                                <input type="text" class="form-control"	id="txtSerie" name="txtSerie" [(ngModel)]="insumoSalida.numPedido" readonly />    
+                            </div>
+                        </div>           
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label>Estado :</label>
+                                <input type="text" class="form-control"	id="txtEstado" name="txtEstado" [(ngModel)]="insumoSalida.nomEstado" readonly />    
+                            </div>
+                        </div>                           
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label>Observación :</label>
+                                <app-input-observacion ngDefaultControl  id="obs" name="obs" 
+                                [(ngModel)]="insumoSalida.observacion" [valueParent]="insumoSalida.observacion">
+    
+                                </app-input-observacion>
+                            </div>
+                        </div>           
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <h4>Insumos</h4>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <table class="panera-table">
+                                <thead>
+                                    <tr>
+                                        <th width="5%">#</th>
+                                        <th width="25%">Tipo categoría</th>
+                                        <th width="25%">Categoria</th>
+                                        <th width="25%">Insumo</th>
+                                        <th width="10%">Cantidad</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let insumo of insumos | slice: pageSize | slice: 0:itemsPerPage ; let i = index " >
+                                        <td>{{ (((currentPage-1) * 10 ) + i) + 1 }}</td>
+                                        <td>{{insumo.nomTipoCategoria}}</td>
+                                        <td>{{insumo.nomCategoria}}</td>
+                                        <td>{{insumo.nomInsumo}}</td>
+                                        <td>{{insumo.cantidad}} {{insumo.medida}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="panera-grid-pagination">
+                            <ngb-pagination [collectionSize]="insumos.length" #numPages [pageSize]="itemsPerPage" [(page)]="currentPage" (pageChange)="onPageChange(currentPage)">
+                            </ngb-pagination>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group float-left" id="btns-guardar">
+                            <div class="form-group float-left" id="btns-guardar">
+                                <button type="button" class="btn btn-primary panera" (click)="solicitarSalidaInsumo(successModal)" [hidden]="!verBtnSolicitar">Solicitar Ingreso</button>
+                                <button type="button" class="btn btn-primary panera" (click)="almacenarSalidaInsumo(successModal)" [hidden]="!verBtnAlmacenar">Enviar a Almacen</button>
+                                <button type="button" class="btn btn-secondary " (click)="cancelar()">Cancelar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+    
+       
+<ng-template #successModal let-modal>
+    <div id="success_tic">
+        <div class="page-body">
+            <div id="svgSuccess">
+            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130.2 130.2">
+                <circle class="path circle" fill="none" stroke="#73AF55" stroke-width="6" stroke-miterlimit="10" cx="65.1" cy="65.1" r="62.1"/>
+                <polyline class="path check" fill="none" stroke="#73AF55" stroke-width="6" stroke-linecap="round" stroke-miterlimit="10" points="100.2,40.2 51.5,88.8 29.8,67.5 "/>
+            </svg>
+            </div>
+            <div id="svgError">
+            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130.2 130.2">
+                <circle class="path circle" fill="none" stroke="#D06079" stroke-width="6" stroke-miterlimit="10" cx="65.1" cy="65.1" r="62.1"/>
+                <line class="path line" fill="none" stroke="#D06079" stroke-width="6" stroke-linecap="round" stroke-miterlimit="10" x1="34.4" y1="37.9" x2="95.8" y2="92.3"/>
+                <line class="path line" fill="none" stroke="#D06079" stroke-width="6" stroke-linecap="round" stroke-miterlimit="10" x1="95.8" y1="38" x2="34.4" y2="92.2"/>
+            </svg>            
+            </div>
+            <p id="successMessage"></p>
+            <div style="text-align: center;">
+                <button type="button" class="btn btn-primary panera" (click)="modal.dismiss('Cross click')">Aceptar</button>
+            </div>
+            <br />
+        </div>
+    </div>
+</ng-template>       

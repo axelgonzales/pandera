@@ -1,0 +1,209 @@
+<!--<section class="pull-main-content">
+    <div class="scroll-contenido">
+        <div class="content-body">
+            <div class="title-form">
+                <span>Salida de Producto</span>
+            </div>     
+            <div class="box-wrap">     
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label>Tipo de Salida :</label>
+                            <select id="cmbTipoIng" name="cmbTipoIng" class="form-control"  [(ngModel)]="productoSalida.idTipo" readonly>
+                                <option value="0">---- Seleccione ----</option>
+                                <option *ngFor="let tipoSalida of tipoSalidas" value="{{tipoSalida.id}}">{{tipoSalida.nombre}}</option>
+                            </select>
+                        </div>            
+                    </div>
+                    <div class="col-sm-4" [hidden]="!verPedido">
+                        <div class="form-group">
+                            <label>Nro. Pedido :</label>
+                            <input type="text" class="form-control"	id="txtSerie" name="txtSerie" [(ngModel)]="productoSalida.numPedido" readonly />    
+                        </div>
+                    </div>           
+                    <div class="col-sm-4" [hidden]="!verEstado">
+                        <div class="form-group">
+                            <label>Estado :</label>
+                            <input type="text" class="form-control"	id="txtEstado" name="txtEstado" [(ngModel)]="productoSalida.nomEstado" readonly />    
+                        </div>
+                    </div>                           
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label>Observación :</label>
+                            <input type="text" class="form-control"	id="obs" name="obs" [(ngModel)]="productoSalida.observacion" />    
+                        </div>
+                    </div>           
+                </div>
+                <div class="card">
+                    <div class="card-header panera">
+                        <h4>Salida Producto Detalle <a class="btn bg-light panera" (click)="agregarProducto(contentModal)">Agregar Producto</a></h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th width="5%">#</th>
+                                    <th width="25%">Tipo categoría</th>
+                                    <th width="25%">Categoria</th>
+                                    <th width="25%">Producto</th>
+                                    <th width="10%">Cantidad</th>
+                                    <th width="10%"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let producto of productos | slice: pageSize | slice: 0:itemsPerPage ; let i = index " >
+                                    <td>{{ (((currentPage-1) * 10 ) + i) + 1 }}</td>
+                                    <td>{{producto.nomTipoCategoria}}</td>
+                                    <td>{{producto.nomCategoria}}</td>
+                                    <td>{{producto.nomProducto}}</td>
+                                    <td>{{producto.cantidad}} {{producto.medida}}</td>
+                                    <td>
+                                        <button type="button" class="btn" (click)="editarProducto(i, contentModal)">
+                                            <img src="../../../../assets/img/icons/edit.png">
+                                        </button>   
+                                        <button type="button" class="btn" (click)="eliminarProducto(i)">
+                                            <img src="../../../../assets/img/icons/delete.png">
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    </div>
+                </div>
+                <hr />
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group float-left" id="btns-guardar">
+                            <button type="button" class="btn btn-primary panera" (click)="guardarInsumo(successModal,errorModal)">Guardar Salida</button>&nbsp;
+                            <button type="button" class="btn btn-primary panera" (click)="guardarInsumo(successModal,errorModal)">Guardar Salida</button>&nbsp;
+                            <button type="button" class="btn btn-primary panera" (click)="guardarInsumo(successModal,errorModal)">Guardar Salida</button>&nbsp;
+                            <button type="button" class="btn btn-secondary " (click)="cancelar()">Cancelar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+    
+    <!-- The Modal -->
+    <ng-template #contentModal let-modal>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modal-basic-title">Agregar Insumo</h5>
+                    <button type="button" class="close" (click)="modal.dismiss('Cross click')">&times;</button>
+                </div>
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Tipo categoría:</label>
+                                <select id="cmbtipocat" name="cmbtipocatp" class="form-control" >
+                                    <option value="0">---- Seleccione ----</option>
+                                    <option *ngFor="let tipoCategoria of tipoCategorias" value="{{tipoCategoria.id}}">
+                                        {{tipoCategoria.nombre}}    
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Categoria :</label>
+                                <select id="cmbcat" name="cmbcat" class="form-control" >
+                                    <option value="0">---- Seleccione ----</option>
+                                    <option *ngFor="let categoria of categorias" value="{{categoria.id}}">
+                                        {{categoria.nombre}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Insumo :</label>
+                                <select id="cmbinsumo" name="cmbinsumo" class="form-control"  >
+                                    <option value="0">---- Seleccione ----</option>
+                                    <option *ngFor="let insumo of insumos" value="{{nsumo.id}}">
+                                        {{Insumo.nombre}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Proveedor :</label>
+                                <select id="cmbproveedor" name="cmbproveedor" class="form-control"  >
+                                    <option value="0">---- Seleccione Insumo ----</option>
+                                    <option *ngFor="let insumo of insumos" value="{{insumo.id}}">
+                                        {{insumo.nombre}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Marca :</label>
+                                <select id="cmbMarca" name="cmbMarca" class="form-control" >
+                                    <option value='0'>---- Seleccionar Marca ----</option>
+                                    <option *ngFor="let marca of marcas" value="{{marca.id}}">{{marca.nombre}}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <label>Precio :</label>
+                            <input type="number" class="form-control" id="precio" name="precio" placeholder="Precio" maxlength="50"  />
+                        </div>
+                        <div class="col-sm-6">
+                            <label>Cantidad :</label>
+                            <input type="number" class="form-control" id="cantidad" name="cantidad" placeholder="Cantidad" maxlength="50"  />
+                        </div>                  
+                    </div>
+    
+                </div>
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary panera" data-dismiss="modal" (click)="guardarInsumoIngreso()">Agregar Insumo</button>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+        
+    <ng-template #successModal let-modal>
+        <div id="success_tic">
+            <a class="close" data-dismiss="modal" (click)="modal.dismiss('Cross click')">&times;</a>
+            <div class="page-body">
+                <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130.2 130.2">
+                    <circle class="path circle" fill="none" stroke="#73AF55" stroke-width="6" stroke-miterlimit="10" cx="65.1" cy="65.1" r="62.1"/>
+                    <polyline class="path check" fill="none" stroke="#73AF55" stroke-width="6" stroke-linecap="round" stroke-miterlimit="10" points="100.2,40.2 51.5,88.8 29.8,67.5 "/>
+                  </svg>
+                  <p class="success">Registro Satisfactorio</p>
+            </div>
+        </div>
+    </ng-template>
+    
+    <ng-template #errorModal let-modal>
+        <div id="success_tic">
+            <a class="close" data-dismiss="modal" (click)="modal.dismiss('Cross click')">&times;</a>
+            <div class="page-body">
+                <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130.2 130.2">
+                    <circle class="path circle" fill="none" stroke="#D06079" stroke-width="6" stroke-miterlimit="10" cx="65.1" cy="65.1" r="62.1"/>
+                    <line class="path line" fill="none" stroke="#D06079" stroke-width="6" stroke-linecap="round" stroke-miterlimit="10" x1="34.4" y1="37.9" x2="95.8" y2="92.3"/>
+                    <line class="path line" fill="none" stroke="#D06079" stroke-width="6" stroke-linecap="round" stroke-miterlimit="10" x1="95.8" y1="38" x2="34.4" y2="92.2"/>
+                  </svg>
+                  <p class="error">No se Completo el Registro </p>
+            </div>
+        </div>
+    </ng-template>
+-->

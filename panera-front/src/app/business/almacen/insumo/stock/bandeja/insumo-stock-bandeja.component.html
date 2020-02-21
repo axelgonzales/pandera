@@ -1,0 +1,110 @@
+<section class="pull-main-content">
+    <div class="scroll-contenido">
+        <div class="content-body">
+            <div class="title-form">
+                <span>Stock Insumos</span>
+            </div>
+            <div class="box-wrap"> 
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="form-group">                
+                            <label>Tipo categoría :</label>
+                            <select id="cmbTipoCategoria" name="cmbTipoCategoria" class="form-control" [(ngModel)]="idTipoCategoria" (change)="listarCategorias()">
+                                <option value="0">---- Seleccione ----</option>
+                                <option *ngFor="let tipoCategoria of tipoCategorias" value="{{tipoCategoria.id}}">
+                                    {{tipoCategoria.nombre}}    
+                                </option>
+                            </select>                
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">                
+                            <label>Categoria :</label>
+                            <select id="cmbCategoria" name="cmbCategoria" class="form-control" [(ngModel)]="idCategoria" (change)="listarInsumos()">
+                                <option value="0">---- Seleccione ----</option>
+                                <option *ngFor="let categoria of categorias" value="{{categoria.id}}">
+                                    {{categoria.nombre}}    
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">      
+                            <label>Insumo :</label>          
+                            <select id="cmbInsumo" name="cmbInsumo" class="form-control" [(ngModel)]="idInsumo">
+                                <option value="0">---- Seleccione ----</option>
+                                <option *ngFor="let insumo of insumos" value="{{insumo.id}}">
+                                    {{insumo.nombre}}    
+                                </option>
+                            </select>                    
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label>Proveedor :</label>
+                            <select id="cmbProveedor" name="cmbProveedor" class="form-control" [(ngModel)]="idProveedor">
+                                <option value="0">---- Seleccione ----</option>
+                                <option *ngFor="let proveedor of proveedores" value="{{proveedor.id}}">
+                                    {{proveedor.razonSocial}}    
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label>Marca :</label>
+                            <select id="cmbMarca" name="cmbMarca" class="form-control" [(ngModel)]="idMarca">
+                                <option value="0">---- Seleccione ----</option>
+                                <option *ngFor="let marca of marcas" value="{{marca.id}}">
+                                    {{marca.nombre}}    
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group btns-bandeja">
+                            <button type="button" class="btn btn-primary panera" (click)="buscarInsumosStock()">Buscar</button>&nbsp;
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <table class="panera-table">
+                            <thead>
+                                <tr>
+                                    <th width-="5%">#</th>
+                                    <th width="30%">Insumo</th>
+                                    <th width="20%">Proveedor</th>
+                                    <th width="15%">Marca</th>
+                                    <th width="15%">Cantidad</th>
+                                    <th width="15%">Cantidad Minima</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let insumoStock of insumosStock | slice: pageSize | slice: 0:itemsPerPage ; let i = index">
+                                    <td>{{i + 1}}</td>
+                                    <td>{{insumoStock.nomInsumo}}</td>
+                                    <td>{{insumoStock.nomProveedor}}</td>
+                                    <td>{{insumoStock.nomMarca}}</td>
+                                    <td>{{insumoStock.cantidad}}</td>
+                                    <td>{{insumoStock.cantidadMinima}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="panera-grid-pagination">
+                            <ngb-pagination [collectionSize]="insumosStock.length" #numPages [pageSize]="itemsPerPage" [(page)]="currentPage" (pageChange)="onPageChange(currentPage)"></ngb-pagination>
+                        </div>     
+                    </div>
+                </div>  
+            </div>
+        </div>
+    </div>
+</section>

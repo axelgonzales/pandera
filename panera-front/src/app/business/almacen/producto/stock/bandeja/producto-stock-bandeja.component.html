@@ -1,0 +1,81 @@
+<section class="pull-main-content">
+    <div class="scroll-contenido">
+        <div class="content-body">
+            <div class="title-form">
+                <span>Stock de Productos</span>
+            </div>
+            <div class="box-wrap"> 
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="form-group">                
+                            <label>Tipo categoría :</label>
+                            <select id="cmbTipoCategoria" name="cmbTipoCategoria" class="form-control" [(ngModel)]="idTipoCategoria" (change)="listarCategorias()">
+                                <option value="0">---- Seleccione ----</option>
+                                <option *ngFor="let tipoCategoria of tipoCategorias" value="{{tipoCategoria.id}}">
+                                    {{tipoCategoria.nombre}}    
+                                </option>
+                            </select>                
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">                
+                            <label>Categoria :</label>
+                            <select id="cmbCategoria" name="cmbCategoria" class="form-control" [(ngModel)]="idCategoria">
+                                <option value="0">---- Seleccione ----</option>
+                                <option *ngFor="let categoria of categorias" value="{{categoria.id}}">
+                                    {{categoria.nombre}}    
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label>Nro. de Pedido :</label>
+                            <input type="text" class="form-control"	id="numPedido" name="numPedido" [(ngModel)]="numPedido" maxlength="50" />
+                        </div>
+                    </div>                    
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group btns-bandeja">
+                            <button type="button" class="btn btn-primary panera" (click)="listarStockProductos()">Buscar</button>&nbsp;
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <table class="panera-table">
+                            <thead>
+                                <tr>
+                                    <th width="5%">#</th>
+                                    <th width="20%%">Tipo categoría</th>
+                                    <th width="20%">Categoria</th>
+                                    <th width="25%">Producto</th>
+                                    <th width="15%">Pedido</th>
+                                    <th width="15%">Cantidad</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let productoStock of productosStock | slice: pageSize | slice: 0:itemsPerPage ; let i = index">
+                                    <td>{{i + 1}}</td>
+                                    <td>{{ productoStock.nomTipoCategoria }}</td>
+                                    <td>{{ productoStock.nomCategoria }}</td>
+                                    <td>{{ productoStock.nomProducto }}</td>
+                                    <td>{{ productoStock.numPedido }}</td>
+                                    <td>{{ productoStock.cantidad }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div  class="panera-grid-pagination">
+                            <ngb-pagination [collectionSize]="productosStock.length" #numPages [pageSize]="itemsPerPage" [(page)]="currentPage" (pageChange)="onPageChange(currentPage)"></ngb-pagination>
+                        </div>     
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

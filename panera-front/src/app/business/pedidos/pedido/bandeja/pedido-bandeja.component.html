@@ -1,0 +1,157 @@
+<section class="pull-main-content">
+    <div class="scroll-contenido">
+        <div class="content-body">
+            <div class="title-form">
+				<span>Bandeja de Pedidos</span>
+            </div>     
+            <div class="box-wrap">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label>Tienda :</label>
+                            <select id="cmbTienda" name="cmbTienda" class="form-control" [(ngModel)]="idTienda" [disabled]="!verTiendas">
+                                <option value='0'>---- Todos ----</option>
+                                <option *ngFor="let tienda of tiendas" value="{{tienda.id}}">{{tienda.nombre}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label>Nro. Pedido :</label>
+                            <input type="text" class="form-control"	id="numPedido" name="numPedido" placeholder="Nro Pedido" maxlength="50" [(ngModel)]="numPedido" />
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">                     
+                            <label>Estado Pedido :</label>
+                            <select id="cmbEstado" name="cmbEstado" class="form-control" [(ngModel)]="idEstado">
+                                <option value='0'>---- Todos ----</option>
+                                <option *ngFor="let estado of estados" value="{{estado.id}}">
+                                    {{estado.nombre}}
+                                </option>
+                            </select>
+                        </div>
+                    </div>                    
+                </div>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="form-group">  
+                            <label>Fecha Registro Pedido :</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" ngbDatepicker #d1="ngbDatepicker" [(ngModel)]="fechaRegistro" readonly/>
+                                <button class="input-group-addon" (click)="d1.toggle()" type="button">
+                                    <img src="../../../../../assets/img/icons/calendar.png" style="width: 1.2rem; height: 1rem; cursor: pointer;"/>
+                                </button>
+                            </div>                              
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">  
+                            <label>Fecha Proceso Pedido :</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" ngbDatepicker #d2="ngbDatepicker" [(ngModel)]="fechaProceso" readonly/>
+                                <button class="input-group-addon" (click)="d2.toggle()" type="button">
+                                    <img src="../../../../../assets/img/icons/calendar.png" style="width: 1.2rem; height: 1rem; cursor: pointer;"/>
+                                </button>
+                            </div>                              
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">  
+                            <label>Fecha Entrega Pedido :</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" ngbDatepicker #d3="ngbDatepicker" [(ngModel)]="fechaEntrega" readonly/>
+                                <button class="input-group-addon" (click)="d3.toggle()" type="button">
+                                    <img src="../../../../../assets/img/icons/calendar.png" style="width: 1.2rem; height: 1rem; cursor: pointer;"/>
+                                </button>
+                            </div>                              
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group btns-bandeja" id="btns-bandeja">
+                            <button type="button" class="btn btn-primary panera" (click)="buscarPedidos()">Buscar Pedidos</button>
+                            <button type="button" class="btn btn-primary panera" (click)="verProductosPedidos()" [hidden]="!verBtnProductos">Ver Productos Pedidos</button>
+                            <button type="button" class="btn btn-secondary" (click)="agregarPedido()" [hidden]="!verBtnNuevo">Nuevo Pedido</button>
+                            <button type="button" class="btn btn-secondary" (click)="agregarPedidoEspecial()" [hidden]="!verBtnNuevoEsp">Nuevo Pedido Especial</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <table class="panera-table">
+                            <thead>
+                                <tr>
+                                    <th width="3%" class="td-center">#</th>
+                                    <th width="25%">Tipo</th>
+                                    <th width="25%">Tienda</th>
+                                    <th width="15%">Número</th>
+                                    <th width="15%">Fecha</th>
+                                    <th width="15%">Estado</th>
+                                    <th width="2%"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let pedido of pedidos | slice: pageSize | slice: 0:itemsPerPage ; let i = index " >
+                                    <td class="td-center">{{ (((currentPage-1) * 10 ) + i) + 1 }}</td> 
+                                    <td>{{ pedido.nomTipo }}</td>
+                                    <td>{{ pedido.nomTienda }}</td>
+                                    <td>{{ pedido.numPedido }}</td>
+                                    <td>{{ pedido.fechaRegistro }}</td>
+                                    <td>{{ pedido.nomEstado }}</td>
+                                    <td class="td-center">
+                                        <div class="panera-btn-edit" (click)="editarPedido(pedido.id)"></div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div *ngIf="valor === true" class="pagination-list panera-grid-pagination">
+                            <ngb-pagination [collectionSize]="pedidos.length" #numPages [pageSize]="itemsPerPage" [(page)]="currentPage" (pageChange)="onPageChange(currentPage)"></ngb-pagination>
+                        </div>
+                    </div>
+                </div>
+                <!--<br />
+                <div class="row panera-table">
+                    <div class="col-sm-12">
+                        <table class="table table-responsive">
+                            <thead>
+                                <tr>
+                                    <th width="5%">Id</th>
+                                    <th width="40%">Tienda</th>
+                                    <th width="15%">Codigo</th>
+                                    <th width="15%">Fecha Pedido</th>
+                                    <th width="20%">Estado Pedido</th>
+                                    <th width="5%"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let pedido of pedidos | slice: pageSize | slice: 0:itemsPerPage ; let i = index " >
+                                    <td>{{ (((currentPage-1) * 10 ) + i) + 1 }}</td> 
+                                    <td>{{pedido.nomTienda}}</td>
+                                    <td>{{pedido.codigo}}</td>
+                                    <td>{{pedido.fecha}}</td>
+                                    <td>{{pedido.nomEstado}}</td>
+                                    <td>
+                                        <button type="button" class="btn" (click)="editarPedido(pedido.id)">
+                                            <img src="../../../../assets/img/icons/edit.png">
+                                        </button>   
+                                     
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div *ngIf="valor === true" class="pagination-list">
+                        <ngb-pagination [collectionSize]="pedidos.length" #numPages [pageSize]="itemsPerPage" [(page)]="currentPage" (pageChange)="onPageChange(currentPage)"></ngb-pagination>
+                    </div>
+                    <br><br><br><br><br>
+                </div>-->
+            </div>
+        </div>
+    </div>
+</section>

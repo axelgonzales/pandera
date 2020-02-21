@@ -1,0 +1,84 @@
+<!--<section class="pull-main-content">
+    <div class="scroll-contenido">
+        <div class="content-body">
+            <div class="title-form">
+                <span>Salida de Productos</span>
+            </div>    
+            <div class="box-wrap">      
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label>Tipo Salida :</label>
+                            <select id="cmbTipoSalida" name="cmbTipoSalida" class="form-control" [(ngModel)]="idTipoSalida">
+                                <option value='0'>---- Todos ----</option>
+                                <option *ngFor="let tipoSalida of tipoSalidas" value="{{tipoSalida.id}}">{{tipoSalida.nombre}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">  
+                            <label>Fecha :</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" ngbDatepicker #d="ngbDatepicker" [(ngModel)]="fecha" readonly/>
+                                <button class="input-group-addon" (click)="d.toggle()" type="button">
+                                    <img src="../../../../../../assets/img/icons/calendar.png" style="width: 1.2rem; height: 1rem; cursor: pointer;"/>
+                                </button>
+                            </div>                              
+                        </div>
+                    </div>    
+                    <div class="col-sm-4">
+                        <div class="form-group">                     
+                            <label>Estado :</label>
+                            <select id="cmbEstado" name="cmbEstado" class="form-control" [(ngModel)]="idEstado">
+                                <option value='0'>---- Todos ----</option>
+                                <option *ngFor="let estado of estados" value="{{estado.id}}">
+                                    {{estado.nombre}}
+                                </option>
+                            </select>
+                        </div>
+                    </div>                                        
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group btns-bandeja" id="btns-bandeja">
+                            <button type="button" class="btn btn-primary panera" (click)="buscarSalidaProductos()">Buscar</button>&nbsp;
+                            <button type="button" class="btn btn-secondary" (click)="agregarSalidaProducto()">Nuevo</button>
+                        </div>
+                    </div>
+                </div>
+                <br />  
+                <div class="row panera-table">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th width="5%">Id</th>
+                                <th width="30%">Tipo Salida</th>
+                                <th width="30%">Nro Compra</th>
+                                <th width="10%">Fecha</th>
+                                <th width="20%">Estado</th>
+                                <th width="5%"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let productoSalida of productoSalidas | slice: pageSize | slice: 0:itemsPerPage ; let i = index " >
+                                <td>{{ (((currentPage-1) * 10 ) + i) + 1 }}</td>
+                                <td>{{productoSalida.nomTipo}}</td>
+                                <td></td>
+                                <td>{{productoSalida.fecha}}</td>
+                                <td>{{productoSalida.nomEstado}}</td>
+                                <td>
+                                    <button type="button" class="btn" (click)="editarSalidaProducto(productoSalida.id)">
+                                        <img src="../../../../../../assets/img/icons/edit.png">
+                                    </button>                                   
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div *ngIf="inBusqueda === true" class="pagination-list">
+                        <ngb-pagination [collectionSize]="productoSalidas.length" #numPages [pageSize]="itemsPerPage" [(page)]="currentPage" (pageChange)="onPageChange(currentPage)"></ngb-pagination>
+                    </div>
+                </div>              
+            </div>
+        </div>
+    </div>
+</section>-->

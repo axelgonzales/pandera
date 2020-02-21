@@ -1,0 +1,68 @@
+<section class="pull-main-content">
+    <div class="scroll-contenido">
+        <div class="content-body">
+            <div class="title-form">
+                <span>Proveedor</span>
+            </div>    
+            <div class="box-wrap">               
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label>Razon Social :</label>
+                            <app-input-razon-social  ngDefaultControl type="text" id="razonSocial" name="razonSocial" (change)="limpiarCampos()"
+                            [valueParent]="proveedor.razonSocial"  [(ngModel)]="proveedor.razonSocial"></app-input-razon-social>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label>RUC :</label>
+                            <input type="text" class="form-control"	id="ruc" name="ruc" maxlength="11" (change)="limpiarCampos()" (keypress)="keyPressRuc($event)"
+                             [(ngModel)]="proveedor.ruc"/>
+                        </div>            
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label>Dirección :</label>
+                            <app-input-direccion ngDefaultControl type="text" id="direccion" name="direccion"
+                            [valueParent]="proveedor.direccion" [(ngModel)]="proveedor.direccion" ></app-input-direccion>
+                        </div>    
+                    </div>                    
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group float-left" id="btns-guardar">
+                            <button type="button" id="btn-guardar" class="btn btn-primary panera" (click)="guardarProveedor(successModal)">Registrar Proveedor</button>&nbsp;
+                            <button type="button" class="btn btn-secondary" (click)="cancelar()">Cancelar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<ng-template #successModal let-modal>
+    <div id="success_tic">
+        <div class="page-body">
+            <div id="svgSuccess">
+            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130.2 130.2">
+                <circle class="path circle" fill="none" stroke="#73AF55" stroke-width="6" stroke-miterlimit="10" cx="65.1" cy="65.1" r="62.1"/>
+                <polyline class="path check" fill="none" stroke="#73AF55" stroke-width="6" stroke-linecap="round" stroke-miterlimit="10" points="100.2,40.2 51.5,88.8 29.8,67.5 "/>
+            </svg>
+            </div>
+            <div id="svgError">
+            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130.2 130.2">
+                <circle class="path circle" fill="none" stroke="#D06079" stroke-width="6" stroke-miterlimit="10" cx="65.1" cy="65.1" r="62.1"/>
+                <line class="path line" fill="none" stroke="#D06079" stroke-width="6" stroke-linecap="round" stroke-miterlimit="10" x1="34.4" y1="37.9" x2="95.8" y2="92.3"/>
+                <line class="path line" fill="none" stroke="#D06079" stroke-width="6" stroke-linecap="round" stroke-miterlimit="10" x1="95.8" y1="38" x2="34.4" y2="92.2"/>
+            </svg>            
+            </div>
+            <p id="successMessage"></p>
+            <div style="text-align: center;">
+                <button type="button" class="btn btn-primary panera" (click)="modal.dismiss('Cross click')">Aceptar</button>
+            </div>
+            <br />
+        </div>
+    </div>
+</ng-template> 

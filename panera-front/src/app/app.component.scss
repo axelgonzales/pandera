@@ -1,0 +1,196 @@
+.btn {
+  margin-left: 3px;
+}
+table {
+  width: 100%;
+}
+
+/* Formulario Registro */
+.pull-main-content{
+	overflow:auto;
+	height:100%;
+	margin-left: 0px;
+	bottom:50px;
+}
+
+.pull-main-content .scroll-contenido{
+  background:#fff;
+	position:relative;
+	width:100%;
+	height: 100%;
+	margin-bottom: -50px;
+}
+
+.pull-main-content .content-body {
+    padding: 0px;
+    min-height: 500px;
+    height:100%;
+}
+
+.pull-main-content .content-body .box-wrap {
+	display: block;
+	clear: both;
+	overflow: auto;
+	background: #fff;
+	height:100%;
+	border-top: 1px solid #f8f8f8;
+	padding: 15px;
+}
+
+.title-form{
+	text-transform: uppercase;
+	font-size: 14px;
+	font-weight: 600;
+	color: #363a44;
+	padding: 15px 0px 15px 20px;
+	position: relative;
+	background: #f8f8f8;
+	-webkit-box-shadow: 0px 0px 1px 0px rgba(153,153,153,1);
+	-moz-box-shadow: 0px 0px 1px 0px rgba(153,153,153,1);
+	box-shadow: 0px 0px 1px 0px rgba(153,153,153,1);
+}
+
+.btns-bandeja{
+    text-align: right;
+    height: 30px;
+}
+
+.btns-registro{
+    text-align: right;
+    height: 30px;
+}
+
+.btn-primary.panera {
+	background-color: #b35d21;
+	border-color: #b35d21;
+}
+
+.btn.bg-light.panera{
+  color: #b35d21;
+  font-weight: bold;
+}
+
+.box-loading{
+	position:fixed;
+	width: 44px;
+	height: 44px;
+	left:50%;
+	top: 50%;
+	margin-left: -22px;
+	margin-top: -22px;
+}
+
+.modal-content {
+    border: none;
+  }
+  .close {
+    opacity: 1;
+    position: absolute;
+    right: 0px;
+    font-size: 30px;
+    padding: 3px 15px;
+    margin-bottom: 10px;
+    cursor: pointer;
+  }
+  
+  svg {
+    width: 100px;
+    display: block;
+    margin: 40px auto 0;
+  }
+  
+  .path {
+    stroke-dasharray: 1000;
+    stroke-dashoffset: 0;
+    &.circle {
+      -webkit-animation: dash 0.9s ease-in-out;
+      animation: dash 0.9s ease-in-out;
+    }
+    &.line {
+      stroke-dashoffset: 1000;
+      -webkit-animation: dash 0.9s 0.35s ease-in-out forwards;
+      animation: dash 0.9s 0.35s ease-in-out forwards;
+    }
+    &.check {
+      stroke-dashoffset: -100;
+      -webkit-animation: dash-check 0.9s 0.35s ease-in-out forwards;
+      animation: dash-check 0.9s 0.35s ease-in-out forwards;
+    }
+  }
+  
+  p {
+    text-align: center;
+    margin: 20px 0 60px;
+    font-size: 1.25em;
+    &.success {
+      color: #73af55;
+    }
+    &.error {
+      color: #d06079;
+    }
+  }
+
+@-webkit-keyframes dash {
+    0% {
+      stroke-dashoffset: 1000;
+    }
+    100% {
+      stroke-dashoffset: 0;
+    }
+  }
+  
+  @keyframes dash {
+    0% {
+      stroke-dashoffset: 1000;
+    }
+    100% {
+      stroke-dashoffset: 0;
+    }
+  }
+  
+  @-webkit-keyframes dash-check {
+    0% {
+      stroke-dashoffset: -100;
+    }
+    100% {
+      stroke-dashoffset: 900;
+    }
+  }
+  
+  @keyframes dash-check {
+    0% {
+      stroke-dashoffset: -100;
+    }
+    100% {
+      stroke-dashoffset: 900;
+    }
+  }
+
+  .btn.btn-secondary{
+    margin-right: 0px !important;
+  }
+
+@media screen and (max-width: 465px) {
+    .panera-table{
+        margin-top:80px;
+    }
+
+    .table-responsive2{
+      padding-top:0px !important;
+    }
+    .btn{
+      display: block;
+      width:100%;
+      margin-bottom: 15px;
+    }
+
+    .btn-circle{
+      margin:11px !important;
+    }
+}
+@media screen and (min-width: 465px) {
+  .table-responsive{
+    width:100%;
+    display: table;
+  }
+}

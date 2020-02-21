@@ -1,0 +1,120 @@
+<section class="pull-main-content">
+    <div class="scroll-contenido">
+        <div class="content-body">
+            <div class="title-form">
+                <span>Mantenimiento de Producto</span>
+            </div>     
+            <div class="box-wrap">          
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label>Tipo de Categoría :</label>
+                            <select id="idTipoCategoria" name="idTipoCategoria" class="form-control" [(ngModel)]="producto.idTipoCategoria" (click)="limpiarCampos()" (change)="listarCategorias()">
+                                <option value='0'>---- Todos ----</option>
+                                <option *ngFor="let tipoCategoria of tipoCategorias" value="{{tipoCategoria.id}}">
+                                    {{tipoCategoria.nombre}}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label>Categoría :</label>
+                            <select id="idCategoria" name="idCategoria" class="form-control" [(ngModel)]="producto.idCategoria" (click)="limpiarCampos()">
+                                <option value='0'>---- Todos ----</option>
+                                <option *ngFor="let categoria of categorias" value="{{categoria.id}}">
+                                    {{categoria.nombre}}
+                                </option>
+                            </select>
+                        </div>            
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label>Nombre :</label>
+                            <app-input-name ngDefaultControl type="text" id="nombre" name="nombre" 
+                            [valueParent]="producto.nombre" [(ngModel)]="producto.nombre" 
+                            (change)="limpiarCampos()" ></app-input-name>
+                        </div>            
+                    </div>                    
+                    <!--<div class="col-sm-4">
+                        <div class="form-group">
+                            <label>Familia :</label>
+                            <select id="cmbFamilia" name="cmbFamilia" class="form-control">
+                                    <option>Familia 1</option>
+                                    <option>Familia 2</option>
+                                    <option>Familia 3</option>
+                                    <option>Familia 4</option>
+                                    <option>Familia 5</option>
+                                    <option>Familia 6</option>
+                            </select> 
+                        </div>    
+                    </div>-->
+                </div>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label>Unidad Medida :</label>
+                            <select id="idMedida" name="idMedida" class="form-control" [(ngModel)]="producto.idMedida" (click)="limpiarCampos()">
+                                    <option value='0'>---- Todos ----</option>
+                                    <option *ngFor="let medida of medidas" value="{{medida.id}}">
+                                        {{medida.nombre}}
+                                    </option>
+                                </select>
+                        </div>
+                    </div>             
+                </div>                
+                <div class="row">
+                        <!--<div class="col-sm-4">
+                            <div class="form-group">
+                                <label>SubFamilia :</label>
+                            <select id="cmbSubFamilia" name="cmbSubFamilia" class="form-control">
+                                    <option>SubFamilia 1</option>
+                                    <option>SubFamilia 2</option>
+                                    <option>SubFamilia 3</option>
+                                    <option>SubFamilia 4</option>
+                            </select> 
+                            </div>
+                        </div>-->
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label>Descripción:</label>
+                            <app-input-description  ngDefaultControl  [valueParent]="producto.descripcion"  type="text" id="descripcion" name="descripcion" [(ngModel)]="producto.descripcion" ></app-input-description>
+                        </div>    
+                    </div>                    
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group float-left" id="btns-guardar">
+                            <button type="button" id="btn-guardar" class="btn btn-primary panera" (click)="guardarProducto(successModal)">Registrar Producto</button>&nbsp;
+                            <button type="button" class="btn btn-secondary " (click)="cancelar()">Cancelar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<ng-template #successModal let-modal>
+    <div id="success_tic">
+        <div class="page-body">
+            <div id="svgSuccess">
+            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130.2 130.2">
+                <circle class="path circle" fill="none" stroke="#73AF55" stroke-width="6" stroke-miterlimit="10" cx="65.1" cy="65.1" r="62.1"/>
+                <polyline class="path check" fill="none" stroke="#73AF55" stroke-width="6" stroke-linecap="round" stroke-miterlimit="10" points="100.2,40.2 51.5,88.8 29.8,67.5 "/>
+            </svg>
+            </div>
+            <div id="svgError">
+            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130.2 130.2">
+                <circle class="path circle" fill="none" stroke="#D06079" stroke-width="6" stroke-miterlimit="10" cx="65.1" cy="65.1" r="62.1"/>
+                <line class="path line" fill="none" stroke="#D06079" stroke-width="6" stroke-linecap="round" stroke-miterlimit="10" x1="34.4" y1="37.9" x2="95.8" y2="92.3"/>
+                <line class="path line" fill="none" stroke="#D06079" stroke-width="6" stroke-linecap="round" stroke-miterlimit="10" x1="95.8" y1="38" x2="34.4" y2="92.2"/>
+            </svg>            
+            </div>
+            <p id="successMessage"></p>
+            <div style="text-align: center;">
+                <button type="button" class="btn btn-primary panera" (click)="modal.dismiss('Cross click')">Aceptar</button>
+            </div>
+            <br />
+        </div>
+    </div>
+</ng-template> 

@@ -1,0 +1,55 @@
+<section class="pull-main-content">
+        <div class="scroll-contenido">
+            <div class="content-body">
+                <div class="title-form">
+                    <span>Familia</span>
+                </div>    
+                <div class="box-wrap">      
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label>Nombre :</label>
+                        <input type="text" class="form-control"	id="razsocial" name="nombre" placeholder="Nombre" maxlength="50" [(ngModel)]="nombre"/>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="form-group btns-bandeja" [hidden]="!verBotones">
+                        <button type="button" class="btn btn-primary panera" (click)="buscarFamilia()">Buscar</button>&nbsp;
+                        <button type="button" class="btn btn-secondary" (click)="agregarFamilia()">Nuevo</button>
+                    </div>
+                </div>
+            </div>
+            <br />
+            <div class="row panera-table">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Nombre</th>
+                            <th>Descripción</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let familia of familias | slice: pageSize | slice: 0:itemsPerPage ; let i = index " >
+                            <td>{{ (((currentPage-1) * 10 ) + i) + 1 }}</td>
+                            <td>{{familia.nombre}}</td>
+                            <td>{{familia.descripcion}}</td>
+                            <td>
+                                <button type="button" class="btn" (click)="editarFamilia(familia.id)">
+                                    <img src="../../../../../assets/img/icons/edit.png">
+                                </button>   
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div *ngIf="valor === true" class="pagination-list">
+                    <ngb-pagination [collectionSize]="familias.length" #numPages [pageSize]="itemsPerPage" [(page)]="currentPage" (pageChange)="onPageChange(currentPage)"></ngb-pagination>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+</section>

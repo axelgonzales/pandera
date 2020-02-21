@@ -1,0 +1,86 @@
+<section class="pull-main-content">
+    <div class="scroll-contenido">
+        <div class="content-body">
+            <div class="title-form">
+                <span>Bandeja de Devoluciones</span>
+            </div>     
+            <div class="box-wrap">     
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label>Nro. Devolución :</label>
+                            <input type="text" class="form-control"	id="numDevolucion" name="numDevolucion" [(ngModel)]="numDevolucion" maxlength="50" />
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">  
+                            <label>Fecha Devolución :</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" ngbDatepicker #d3="ngbDatepicker" [(ngModel)]="fechaDevolucion" readonly />
+                                <button class="input-group-addon" (click)="d3.toggle()" type="button">
+                                    <img src="../../../../../assets/img/icons/calendar.png" style="width: 1.2rem; height: 1rem; cursor: pointer;"/>
+                                </button>
+                            </div>                              
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">                     
+                            <label>Estado :</label>
+                            <select id="cmbEstado" name="cmbEstado" class="form-control" [(ngModel)]="idEstado">
+                                <option value='0'>---- Todos ----</option>
+                                <option *ngFor="let estado of estados" value="{{estado.id}}">
+                                    {{estado.nombre}}
+                                </option>
+                            </select>
+                        </div>
+                    </div>    
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group btns-bandeja">
+                            <button type="button" class="btn btn-primary panera" (click)="buscarDevoluciones()">Buscar Devoluciones</button>&nbsp;
+                            <button type="button" class="btn btn-secondary" (click)="agregarDevolucion()">Nueva Devolución</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <table class="panera-table">
+                            <thead>
+                                <tr>
+                                    <th width="5%" class="td-center">#</th>
+                                    <th width="35%">Tienda</th>
+                                    <th width="25%">Número</th>
+                                    <th width="15%">Fecha</th>
+                                    <th width="15%">Estado</th>
+                                    <th width="5%"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let devolucion of devoluciones | slice: pageSize | slice: 0:itemsPerPage ; let i = index " >
+                                    <td class="td-center">{{ (((currentPage-1) * 10 ) + i) + 1 }}</td> 
+                                    <td>{{devolucion.nomTienda}}</td>
+                                    <td>{{devolucion.numDevolucion}}</td>
+                                    <td>{{devolucion.fechaDevolucion}}</td>
+                                    <td>{{devolucion.nomEstado}}</td>
+                                    <td>
+                                        <button type="button" class="btn" (click)="editarDevolucion(devolucion.id)">
+                                            <img src="../../../../assets/img/icons/edit.png">
+                                        </button>   
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div *ngIf="valor === true" class="pagination-list panera-grid-pagination">
+                            <ngb-pagination [collectionSize]="devoluciones.length" #numPages [pageSize]="itemsPerPage" [(page)]="currentPage" (pageChange)="onPageChange(currentPage)"></ngb-pagination>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

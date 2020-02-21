@@ -1,0 +1,168 @@
+
+<div class="row">
+    <div class="col-sm-6 fondo_1">
+        <img class="img_1" src="../assets/img/logo_1.png">
+        <footer>
+            <p class="txt-copy">Todos los derechos reservados © 2019 La Panera Factory</p>
+        </footer>
+    </div>
+    <div class="espacio"></div>
+    <div class="col-sm-6 fondo_2">
+        <div class="form-group help">
+            <p>AYUDA</p>&nbsp;&nbsp;&nbsp;<p>?</p>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12 form-login-p">
+                    <div class="content-login">
+                        <div class="form-login">
+                            <img src="../assets/img/logo_2.png" class="logo_1">
+                            <br><br><br>
+                            <div class="form-group">
+                                <div class="col-sm-12 lbl-mat">
+                                    <img src="../assets/img/user_icon.png">
+                                    <input id="usuario" type="text" class="form-control" [(ngModel)]="usuario" placeholder="Usuario" />      
+                                </div>
+                            </div>
+                            <br>
+                            <div class="form-group">
+                                <div class="col-sm-12 lbl-mat">
+                                    <img src="../assets/img/pass_icon.png" class="icon-pass">
+                                    <input id="contrasena" type="password" class="form-control" [(ngModel)]="contrasena" placeholder="Contraseña" />
+                                    
+                                </div>
+                            </div>
+                            <br>
+                            <div class="form-group">
+                                <button type="button" class="btn btn-inicio" (click)="loginUsuario(errorModal)">Ingresar</button>
+                            </div>
+                            <div class="form-group">
+                                <a href="#" class="link-inicio" (click)="forgetPassword(contentModal,errorModal,errorModal2,errorModal3)">¿Se te olvidó la contraseña?</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<ng-template #successModal let-modal>
+    <div id="success_tic">
+        <a class="close" data-dismiss="modal" (click)="modal.dismiss('Cross click')">&times;</a>
+        <div class="page-body">
+            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130.2 130.2">
+                <circle class="path circle" fill="none" stroke="#73AF55" stroke-width="6" stroke-miterlimit="10" cx="65.1" cy="65.1" r="62.1"/>
+                <polyline class="path check" fill="none" stroke="#73AF55" stroke-width="6" stroke-linecap="round" stroke-miterlimit="10" points="100.2,40.2 51.5,88.8 29.8,67.5 "/>
+              </svg>
+              <p class="success">Bienvenido al Sistema Panera</p>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #successModal2 let-modal>
+    <div id="success_tic">
+        <a class="close" data-dismiss="modal" (click)="modal.dismiss('Cross click')">&times;</a>
+        <div class="page-body">
+            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130.2 130.2">
+                <circle class="path circle" fill="none" stroke="#73AF55" stroke-width="6" stroke-miterlimit="10" cx="65.1" cy="65.1" r="62.1"/>
+                <polyline class="path check" fill="none" stroke="#73AF55" stroke-width="6" stroke-linecap="round" stroke-miterlimit="10" points="100.2,40.2 51.5,88.8 29.8,67.5 "/>
+              </svg>
+              <p class="success">Actualizada la contraseña correctamente.</p>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #errorModal let-modal>
+    <div id="success_tic">
+        <a class="close" data-dismiss="modal" (click)="modal.dismiss('Cross click')">&times;</a>
+        <div class="page-body">
+            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130.2 130.2">
+                <circle class="path circle" fill="none" stroke="#D06079" stroke-width="6" stroke-miterlimit="10" cx="65.1" cy="65.1" r="62.1"/>
+                <line class="path line" fill="none" stroke="#D06079" stroke-width="6" stroke-linecap="round" stroke-miterlimit="10" x1="34.4" y1="37.9" x2="95.8" y2="92.3"/>
+                <line class="path line" fill="none" stroke="#D06079" stroke-width="6" stroke-linecap="round" stroke-miterlimit="10" x1="95.8" y1="38" x2="34.4" y2="92.2"/>
+              </svg>
+              <p class="error">Usuario o Contraseña incorrectos.</p>
+        </div>
+    </div>
+</ng-template>
+
+
+<ng-template #errorModal2 let-modal>
+    <div id="success_tic">
+        <a class="close" data-dismiss="modal" (click)="modal.dismiss('Cross click')">&times;</a>
+        <div class="page-body">
+            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130.2 130.2">
+                <circle class="path circle" fill="none" stroke="#D06079" stroke-width="6" stroke-miterlimit="10" cx="65.1" cy="65.1" r="62.1"/>
+                <line class="path line" fill="none" stroke="#D06079" stroke-width="6" stroke-linecap="round" stroke-miterlimit="10" x1="34.4" y1="37.9" x2="95.8" y2="92.3"/>
+                <line class="path line" fill="none" stroke="#D06079" stroke-width="6" stroke-linecap="round" stroke-miterlimit="10" x1="95.8" y1="38" x2="34.4" y2="92.2"/>
+              </svg>
+              <p class="error">Usuario ingresado incorrectamente para el cambio de contraseña.</p>
+        </div>
+    </div>
+</ng-template>
+
+
+<ng-template #errorModal3 let-modal>
+    <div id="success_tic">
+        <a class="close" data-dismiss="modal" (click)="modal.dismiss('Cross click')">&times;</a>
+        <div class="page-body">
+            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130.2 130.2">
+                <circle class="path circle" fill="none" stroke="#D06079" stroke-width="6" stroke-miterlimit="10" cx="65.1" cy="65.1" r="62.1"/>
+                <line class="path line" fill="none" stroke="#D06079" stroke-width="6" stroke-linecap="round" stroke-miterlimit="10" x1="34.4" y1="37.9" x2="95.8" y2="92.3"/>
+                <line class="path line" fill="none" stroke="#D06079" stroke-width="6" stroke-linecap="round" stroke-miterlimit="10" x1="95.8" y1="38" x2="34.4" y2="92.2"/>
+              </svg>
+              <p class="error">Debe ingresar el usuario para proceder con el cambio de contraseña.</p>
+        </div>
+    </div>
+</ng-template>
+
+
+<ng-template #errorModal4 let-modal>
+    <div id="success_tic">
+        <a class="close" data-dismiss="modal" (click)="modal.dismiss('Cross click')">&times;</a>
+        <div class="page-body">
+            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130.2 130.2">
+                <circle class="path circle" fill="none" stroke="#D06079" stroke-width="6" stroke-miterlimit="10" cx="65.1" cy="65.1" r="62.1"/>
+                <line class="path line" fill="none" stroke="#D06079" stroke-width="6" stroke-linecap="round" stroke-miterlimit="10" x1="34.4" y1="37.9" x2="95.8" y2="92.3"/>
+                <line class="path line" fill="none" stroke="#D06079" stroke-width="6" stroke-linecap="round" stroke-miterlimit="10" x1="95.8" y1="38" x2="34.4" y2="92.2"/>
+              </svg>
+              <p class="error">Error al actualizar Contraseña.</p>
+        </div>
+    </div>
+</ng-template>
+
+<!-- The Modal -->
+<ng-template #contentModal let-modal>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h5 class="modal-title" id="modal-basic-title">Cambiar Contraseña</h5>
+                <button type="button" class="close" (click)="modal.dismiss('Cross click')">&times;</button>
+            </div>
+            <!-- Modal body -->
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label>Usuario:</label>
+                            <input type="text" id="usuario_2" class="form-control" [(ngModel)]="usuario_2" placeholder="Usuario" disabled>
+                            <input type="hidden" id="id_usuario" [(ngModel)]="id_usuario" >
+                            <input type="hidden" id="id_tienda" [(ngModel)]="id_tienda" >
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label>Password Nuevo:</label>
+                            <input type="password" id="password_2" class="form-control" [(ngModel)]="password_2" placeholder="Password" >
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-info panera" data-dismiss="modal" (click)="actualizarContrasena(successModal2,errorModal4)">Actualizar Contraseña</button>
+            </div>
+        </div>
+    </div>
+</ng-template>

@@ -1,0 +1,43 @@
+<header class="header">
+    <div class="btn-menu">
+        <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#demo" (click)="prueb()"
+                (click)="isCollapsed = !isCollapsed" [attr.aria-expanded]="!isCollapsed" aria-controls="collapseExample">
+            <span class="textmenu"><img class="imgmenu" src="assets/img/toogle.png"/>Menú</span>
+        </button> 
+        <button type="button" class="navbar-toggler float-right"  style="margin-top:5px;" (click)="cerrarSesion()">
+                <span class="textmenu"><img class="imgmenu" src="assets/img/toogle2.png"/>Cerrar Sesión</span>
+        </button>       
+        <span id="title-menu" class="navbar-toggler float-right"  style="margin-top:8px;" [innerHTML]="title"></span>&nbsp;&nbsp;
+    </div>
+</header>
+<div class="collapse width" id="demo" [ngbCollapse]="!isCollapsed">
+    <section class="menu">
+        <span id="title-menu2" [innerHTML]="title2"></span>
+        <div class="sidenav">
+            <div *ngFor="let permisoPadre of usuario.permisos; let i = index">
+                <button class="dropdown-btn">
+                    <img class="icon-menu" src="../../assets/img/icons/seguridad.png" />
+                    {{permisoPadre.nombre}}
+                    <i class="fa fa-caret-down"></i>
+                </button>
+                <div class="dropdown-container">
+                    <a href="{{permiso.url}}" target="iframe-main-content" *ngFor="let permiso of permisoPadre.permisos" data-toggle="collapse" data-target="#demo" (click)="prueb2()">
+                        {{permiso.nombre}}
+                    </a>
+                </div>                
+            </div>
+        </div>
+    </section>
+</div>
+
+<section id="wrap-content" class="wrap-content">
+        <img src="../../assets/img/logo_2.png" class="logo_movil">
+    <div class="pull-main-content">
+        <iframe id="iframe-main-content" name="iframe-main-content" class="iframe-main-content"></iframe>
+    </div>
+</section>
+<footer class="footer">
+    <div class="copyright">
+        <span>Todos los derechos reservados © 2019 La Panera Factory</span>
+    </div>
+</footer>

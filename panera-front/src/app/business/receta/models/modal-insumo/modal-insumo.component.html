@@ -1,0 +1,107 @@
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="modal-basic-title">Agregar Insumo</h5>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label>Tipo categoría :</label>
+                        <select id="cmbTipoCategoria" name="cmbTipoCategoria" class="form-control" [(ngModel)]="idTipoCategoria" (change)="listarCategoriasInsumo();">
+                            <option value='0'>---- Seleccione ----</option>
+                            <option *ngFor="let tipoCategoria of tipoCategoriasInsumo" value="{{tipoCategoria.id}}">
+                                {{tipoCategoria.nombre}}    
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label>Categoria :</label>
+                        <select id="cmbCategoria" name="cmbCategoria" class="form-control" [(ngModel)]="idCategoria" (change)="listarInsumos();">
+                            <option value='0'>---- Seleccione ----</option>
+                            <option *ngFor="let categoria of categorias" value="{{categoria.id}}">
+                                {{categoria.nombre}}
+                            </option>
+                        </select>
+                    </div>      
+                </div>                    
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+                            <!-- Checkbox Column -->
+                            <ng-container matColumnDef="select">
+                                <th mat-header-cell *matHeaderCellDef>
+                                <mat-checkbox (change)="$event ? masterToggle() : null"
+                                                [checked]="selection.hasValue() && isAllSelected()"
+                                                [indeterminate]="selection.hasValue() && !isAllSelected()"
+                                                [aria-label]="checkboxLabel()">
+                                </mat-checkbox>
+                                </th>
+                                <td mat-cell *matCellDef="let row">
+                                <mat-checkbox (click)="$event.stopPropagation()"
+                                                (change)="$event ? selection.toggle(row) : null"
+                                                [checked]="selection.isSelected(row)"
+                                                [aria-label]="checkboxLabel(row)">
+                                </mat-checkbox>
+                                </td>
+                            </ng-container>
+                            
+                            <!-- Position Column -->
+                            <ng-container matColumnDef="id">
+                                <th mat-header-cell *matHeaderCellDef> No. </th>
+                                <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+                            </ng-container>
+                            
+                            <!-- Name Column -->
+                            <ng-container matColumnDef="nombre">
+                                <th mat-header-cell *matHeaderCellDef> Insumo </th>
+                                <td mat-cell *matCellDef="let element"> {{element.nombre}} </td>
+                            </ng-container>
+                            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                            <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+                                (click)="selection.toggle(row)">
+                            </tr>
+                        </table>
+                        <mat-paginator [pageSizeOptions]="[10, 15, 20]" showFirstLastButtons></mat-paginator>
+                <!-- <table class="panera-table" id="table_register">
+                    <thead>
+                        <tr>
+                            <th width="3%">#</th>
+                            <th width="95%">Insumo</th>
+                            <th width="2%"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let insumo of insumos | slice: pageSizeInsumo | slice: 0:itemsPerPageInsumo ; let n = index" >
+                            <td>{{ (((currentPageInsumo - 1) * 10 ) + n) + 1 }}</td>
+                            <td>{{ insumo.nombre }}</td>
+                            <td>
+                                <div *ngIf="insumo.activo == '0'">
+                                    <input type="checkbox" id="activo" name="activo"  (click)="seleccionoInsumo(n)" />
+                                </div>
+                                <div *ngIf="insumo.activo == '1'">
+                                    <input type="checkbox" id="activo" name="activo" checked (click)="seleccionoInsumo(n)" />
+                                </div>                                    
+                            </td>
+                        </tr>
+                    </tbody>
+                </table> -->
+                </div>
+            </div> 
+            <!-- <div class="row">
+                <div class="col-sm-12">
+                    <div class="panera-grid-pagination">
+                        <ngb-pagination [collectionSize]="insumos.length" #numPages [pageSize]="itemsPerPageInsumo" [(page)]="currentPageInsumo" (pageChange)="onPageChangeInsumo(currentPageInsumo)"></ngb-pagination>
+                    </div>
+                </div>
+            </div>                       -->
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-primary panera" data-dismiss="modal" (click)="guardarInsumo()">Agregar Ingrediente</button>
+            <button type="button" class="btn btn-secondary panera" (click)="cerrar()">Cancelar</button>
+        </div>
+    </div>
+</div>

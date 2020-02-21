@@ -1,0 +1,57 @@
+<section class="pull-main-content">
+    <div class="scroll-contenido">
+        <div class="content-body">
+            <div class="title-form">
+                <span>Bandeja de Intermedios</span>
+            </div>    
+            <div class="box-wrap">      
+                <div class="row">                                     
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label>Nombre :</label>
+                            <app-input-name ngDefaultControl [valueParent]="nombre"  type="text" id="nombre" [(ngModel)]="nombre"
+                             name="nombre" placeholder="Nombre" [(ngModel)]="nombre" ></app-input-name>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group btns-bandeja" id="btns-guardar">
+                            <button type="button" class="btn btn-primary panera" (click)="listarIntermedios()">Buscar</button>&nbsp;
+                            <button type="button" class="btn btn-secondary" (click)="agregarIntermedio()">Nuevo</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <table class="panera-table">
+                            <thead>
+                                <tr>
+                                    <th width="5%">#</th>                            
+                                    <th width="90%">Nombre</th>
+                                    <th width="5%"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let intermedio of intermedios | slice: pageSize | slice: 0:itemsPerPage ; let i = index">
+                                    <td>{{i + 1}}</td>
+                                    <td>{{intermedio.nombre}}</td>
+                                    <td>
+                                        <div class="panera-btn-edit" (click)="editarIntermedio(intermedio.id)"></div>                                 
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="panera-grid-pagination">
+                            <ngb-pagination [collectionSize]="intermedios.length" #numPages [pageSize]="itemsPerPage" [(page)]="currentPage" (pageChange)="onPageChange(currentPage)"></ngb-pagination>
+                        </div>                           
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

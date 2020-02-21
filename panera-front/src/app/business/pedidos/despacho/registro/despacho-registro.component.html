@@ -1,0 +1,209 @@
+<section class="pull-main-content">
+  <div class="scroll-contenido">
+    <div class="content-body">
+      <div class="title-form">
+        <span>Mantenimiento de Despacho</span>
+      </div>
+      <div class="box-wrap">
+        <div class="row">
+          <div class="col-sm-4" [hidden]="!verEdicion">
+            <div class="form-group">
+              <label>Nro. Despacho :</label>
+              <input type="text" class="form-control"	id="numDespacho" name="numDespacho" [(ngModel)]="despacho.numDespacho" readonly />
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label>Fecha Despacho :</label>
+              <div class="input-group">
+                <input type="text" class="form-control" ngbDatepicker #d3="ngbDatepicker" [(ngModel)]="fechaDespacho" readonly />
+                <button class="input-group-addon" (click)="d3.toggle()" type="button" [hidden]="verEdicion">
+                  <img src="../../../../../assets/img/icons/calendar.png" class="panera-icon-date"/>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-4" [hidden]="!verEdicion">
+            <div class="form-group">
+              <label>Estado :</label>
+              <input type="text" class="form-control"	id="nomEstado" name="nomEstado" [(ngModel)]="despacho.nomEstado" readonly />
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="form-group">
+              <label>Observaciónes :</label>
+              <input type="text" class="form-control"	id="observacion" name="observacion" [(ngModel)]="despacho.observacion" maxlength="50" />
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-6">
+            <h3>Productos</h3>
+          </div>
+          <div class="col-sm-6">
+            <div class="form-group btns-bandeja" id="btns-bandeja">
+              <button type="button" class="btn btn-primary panera" (click)="agregarProducto(modalProducto)" [hidden]="!verBtnAgregar">Agregar Producto</button>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12">
+            <table class="panera-table">
+              <thead>
+                <tr>
+                  <th width="6%">#</th>
+                  <th width="15%">Tienda</th>
+                  <th width="15%">Nro. Pedido</th>                  
+                  <th width="15%">Producto</th>
+                  <th width="10%">Costo</th>
+                  <th width="10%">Mano Obra</th>
+                  <th width="10%">Otros</th>
+                  <th width="10%">Cantidad</th>
+                  <th width="10%">Estado</th>
+                  <th width="2%"></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let producto of despachoProductos | slice: pageSize | slice: 0:itemsPerPage ; let i = index " >
+                  <td>{{ (((currentPage - 1) * 10 ) + i) + 1 }}</td>
+                  <td>{{ producto.nomTienda }}</td>
+                  <td>{{ producto.numPedido }}</td>
+                  <td>{{ producto.nomProducto }}</td>
+                  <td>{{ producto.costoProduccion }}</td>
+                  <td>
+                    <div *ngIf="editableDetalle === true">
+                      <input type="text" class="form-control panera-input-number" [(ngModel)]="producto.costoObra" />
+                    </div>
+                    <div *ngIf="editableDetalle === false">
+                      {{ producto.costoObra }}
+                    </div>
+                  </td>
+                  <td>
+                    <div *ngIf="editableDetalle === true">
+                      <input type="text" class="form-control panera-input-number" [(ngModel)]="producto.costoOtro" />
+                    </div>
+                    <div *ngIf="editableDetalle === false">
+                      {{ producto.costoOtro }}
+                    </div>
+                  </td>
+                  <td>
+                    <div *ngIf="editableDetalle === true">
+                      <input type="text" class="form-control panera-input-number" [(ngModel)]="producto.cantidad" />
+                    </div>
+                    <div *ngIf="editableDetalle === false">
+                      {{ producto.cantidad }}
+                    </div>
+                  </td>
+                  <td>{{ producto.nomEstado }}</td>
+                  <td class="td-center">
+                    <div class="panera-btn-delete" (click)="eliminarProducto(i)" [hidden]="!verBtnEliminar"></div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="pagination-list panera-grid-pagination">
+              <ngb-pagination [collectionSize]="despachoProductos.length" #numPages [pageSize]="itemsPerPage" [(page)]="currentPage" (pageChange)="onPageChange(currentPage)"></ngb-pagination>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="form-group btns-bandeja float-left" id="btns-guardar">
+              <button type="button" id="btn-guardar" class="btn btn-primary panera" (click)="guardarDespacho(successModal)" [hidden]="!verBtnGuardar">Registrar Despacho</button>
+              <button type="button" class="btn btn-primary panera" (click)="enviarDespacho(successModal)" [hidden]="!verBtnEnviar">Enviar a Despachar</button>
+              <button type="button" class="btn btn-primary panera" (click)="despacharDespacho(successModal)" [hidden]="!verBtnDespachar">Despachar</button>
+              <button type="button" class="btn btn-secondary " (click)="cancelar()">Cancelar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<ng-template #modalProducto let-modal>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modal-basic-title">Seleccionar Productos</h5>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-sm-12">
+            <table class="panera-table">
+              <thead>
+                <tr>
+                  <th width="5%" class="td-center">#</th>
+                  <th width="40%">Producto</th>
+                  <th width="40%">Nro. Pedido</th>
+                  <th width="5%"></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let productoStock of productosStock | slice: pageSizeStock | slice: 0:itemsPerPageStock ; let j = index">
+                  <td class="td-center">{{ (((currentPageStock - 1) * itemsPerPageStock ) + j) + 1 }}</td>
+                  <td>{{ productoStock.nomProducto }}</td>
+                  <td>{{ productoStock.numPedido }}</td>
+                  <td class="td-center">
+                    <div *ngIf="productoStock.activo == '1'">
+                      <input type="checkbox" id="activo" name="activo" checked (click)="seleccionoProducto(j)" />
+                    </div>
+                    <div *ngIf="productoStock.activo == '0' || productoStock.activo == undefined">
+                        <input type="checkbox" id="activo" name="activo" (click)="seleccionoProducto(j)" />
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="panera-grid-pagination">
+              <ngb-pagination [collectionSize]="productosStock.length" #numPages [pageSize]="itemsPerPageStock" [(page)]="currentPageStock" (pageChange)="onPageChange(currentPageStock)"></ngb-pagination>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">   
+        <div class="row">
+          <div class="col-sm-12">
+            <button type="button" class="btn btn-primary panera" data-dismiss="modal" (click)="agregarProductos()">Agregar Productos</button>
+            <button type="button" class="btn btn-secondary" (click)="modal.dismiss('Cross click')">Cerrar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #successModal let-modal>
+    <div id="success_tic">
+        <div class="page-body">
+            <div id="svgSuccess">
+            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130.2 130.2">
+                <circle class="path circle" fill="none" stroke="#73AF55" stroke-width="6" stroke-miterlimit="10" cx="65.1" cy="65.1" r="62.1"/>
+                <polyline class="path check" fill="none" stroke="#73AF55" stroke-width="6" stroke-linecap="round" stroke-miterlimit="10" points="100.2,40.2 51.5,88.8 29.8,67.5 "/>
+            </svg>
+            </div>
+            <div id="svgError">
+            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130.2 130.2">
+                <circle class="path circle" fill="none" stroke="#D06079" stroke-width="6" stroke-miterlimit="10" cx="65.1" cy="65.1" r="62.1"/>
+                <line class="path line" fill="none" stroke="#D06079" stroke-width="6" stroke-linecap="round" stroke-miterlimit="10" x1="34.4" y1="37.9" x2="95.8" y2="92.3"/>
+                <line class="path line" fill="none" stroke="#D06079" stroke-width="6" stroke-linecap="round" stroke-miterlimit="10" x1="95.8" y1="38" x2="34.4" y2="92.2"/>
+            </svg>            
+            </div>
+            <p id="successMessage"></p>
+            <div style="text-align: center;">
+                <button type="button" class="btn btn-primary panera" (click)="modal.dismiss('Cross click')">Aceptar</button>
+            </div>
+            <br />
+        </div>
+    </div>
+</ng-template>    

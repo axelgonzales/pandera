@@ -1,0 +1,72 @@
+<section class="pull-main-content">
+    <div class="scroll-contenido">
+        <div class="content-body">
+            <div class="title-form">
+                <span>Bandeja de Usuarios</span>
+            </div>     
+            <div class="box-wrap">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label>Usuario :</label>
+                            <input type="text" class="form-control"	id="usuario" name="usuario"  maxlength="50" [(ngModel)]="usuario" />
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                                <label>Nombre :</label>
+                                <input type="text" class="form-control"	id="nombre" name="nombre" maxlength="50" [(ngModel)]="nombre" />
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label>Apellido :</label>
+                            <input type="text" class="form-control"	id="apellido" name="apellido" maxlength="50" [(ngModel)] = "apellido" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group btns-registro">
+                            <button type="button" class="btn btn-primary panera" (click)="buscarUsuarios()">Buscar</button>&nbsp;
+                            <button type="button" class="btn btn-secondary" (click)="nuevoUsuario()">Nuevo</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <table class="panera-table">
+                            <thead>
+                                <tr>
+                                    <th width="3%">#</th>
+                                    <th width="25%">Usuario</th>
+                                    <th width="30%">Nombre</th>
+                                    <th width="30%">Apellido</th>
+                                    <th width="2%"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let usuario of usuarios | slice: pageSize | slice: 0:itemsPerPage ; let i = index">
+                                    <td>{{ (((currentPage - 1) * 10 ) + i) + 1 }}</td>
+                                    <td>{{usuario.usuario}}</td>
+                                    <td>{{usuario.nombre}}</td>
+                                    <td>{{usuario.apellido}}</td>
+                                    <td>
+                                        <div class="panera-btn-edit" (click)="editarUsuario(usuario.id)"></div>                            
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="panera-grid-pagination">
+                            <ngb-pagination [collectionSize]="usuarios.length" #numPages [pageSize]="itemsPerPage" [(page)]="currentPage" (pageChange)="onPageChange(currentPage)"></ngb-pagination>
+                        </div>
+                    </div>
+                </div>                
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,178 @@
+<section class="pull-main-content">
+    <div class="scroll-contenido">
+        <div class="content-body">
+            <div class="title-form">
+                <span>Registro de Receta</span>
+            </div>     
+            <div class="box-wrap">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <div class="form-group">
+                                <label>Tipo Receta :</label>
+                                <select id="idTipo" name="idTipo" class="form-control" [(ngModel)]="receta.idTipo" [hidden]="!verNuevo" (change)="seleccionoTipoReceta();">
+                                    <option value='0'>---- Seleccione ----</option>
+                                    <option *ngFor="let tipoReceta of tipoRecetas" value="{{tipoReceta.id}}">{{tipoReceta.nombre}}</option>
+                                </select>
+                                <input type="text" id="txtTipoReceta" name="txtTipoReceta" class="form-control" [(ngModel)]="receta.nomTipo" [hidden]="verNuevo" readonly />
+                            </div>
+                        </div>   
+                    </div>
+                </div>
+                <div class="row" [hidden]="!verProducto">
+                    <div class="col-sm-4" [hidden]="!verNuevo">
+                        <div class="form-group">
+                            <label>Tipo categoría :</label>
+                            <select id="idTipoCategoria" name="idTipoCategoria" class="form-control" [(ngModel)]="receta.idTipoCategoria" (change)="listarCategorias();">
+                                <option value='0'>---- Seleccione ----</option>
+                                <option *ngFor="let tipoCategoria of tipoCategorias" value="{{tipoCategoria.id}}">
+                                    {{tipoCategoria.nombre}}    
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-4" [hidden]="!verNuevo">
+                        <div class="form-group">
+                            <label>Categoria :</label>
+                            <select id="idCategoria" name="idCategoria" class="form-control" [(ngModel)]="receta.idCategoria" (change)="listarProductos();">
+                                <option value='0'>---- Seleccione ----</option>
+                                <option *ngFor="let categoria of categorias" value="{{categoria.id}}">
+                                    {{categoria.nombre}}
+                                </option>
+                            </select>
+                        </div>      
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group" [hidden]="!verNuevo">
+                            <label>Producto :</label>
+                            <select id="idProducto" name="idProducto" class="form-control" [(ngModel)]="receta.idProducto">
+                                <option value='0'>---- Seleccione ----</option>
+                                <option *ngFor="let producto of productos" value="{{producto.id}}">
+                                    {{producto.nombre}}
+                                </option>
+                            </select>
+                        </div>      
+                    </div>   
+                </div>
+                <div class="row" [hidden]="!verIntermedio">
+                    <div class="col-sm-4" [hidden]="!verNuevo">
+                        <div class="form-group">
+                            <div class="form-group">
+                                <label>Intermedio :</label>
+                                <select id="idIntermedio" name="idIntermedio" class="form-control" [(ngModel)]="receta.idIntermedio" (click)="limpiarCampos()">
+                                    <option value='0'>---- Todos ----</option>
+                                    <option *ngFor="let intermedio of intermedios" value="{{intermedio.id}}">{{intermedio.nombre}}</option>
+                                </select>
+                            </div>
+                        </div>            
+                    </div>
+                </div>
+                <div class="row" [hidden]="verNuevo">
+                    <div class="col-sm-4" [hidden]="!verProducto">
+                        <div class="form-group">
+                            <label>Producto :</label>
+                            <input type="text" id="nomProducto" name="nomProducto" class="form-control" [(ngModel)]="receta.nomProducto" readonly />
+                        </div>      
+                    </div>                       
+                    <div class="col-sm-4" [hidden]="!verIntermedio">
+                        <div class="form-group">
+                            <label>Intermedio :</label>
+                            <input type="text" id="nomIntermedio" name="nomIntermedio" class="form-control" [(ngModel)]="receta.nomIntermedio" readonly />
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label>Cantidad :</label>
+                            <input type="text" id="cantidad" name="cantidad" class="form-control" 
+                            (keypress)="keyPressCantidad($event)" 
+                            [(ngModel)]="receta.cantidad" (change)="limpiarCampos()" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <h4>Ingredientes</h4>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group btns-bandeja" id="btns-bandeja" [hidden]="verNuevo">
+                            <button type="button" class="btn btn-primary panera" (click)="agregarIntermedio(modalIntermedio)" [hidden]="!verProducto">Agregar Intermedio</button>
+                            <button type="button" class="btn btn-primary panera" (click)="agregarInsumo(modalInsumo)">Agregar Insumo</button>
+                        </div>
+                    </div>                    
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                            
+                        <table class="panera-table">
+                            <thead>
+                                <tr>
+                                    <th width="3%">#</th>
+                                    <th width="55%">Nombre</th>
+                                    <th width="20%">Cantidad</th>
+                                    <th width="20%">Medida</th>
+                                    <th width="2%"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let ingrediente of ingredientes | slice: pageSize | slice: 0:itemsPerPage ; let i = index " >
+                                    <td>{{ (((currentPage - 1) * 10 ) + i) + 1 }}</td>
+                                    <td>{{ ingrediente.nomIngrediente }}</td>
+                                    <td>
+                                        <input type="text" name="txtCantidad" class="form-control panera-input-number" [(ngModel)]="ingrediente.cantidad" />
+                                    </td>
+                                    <td>{{ ingrediente.nomMedida }}</td>
+                                    <td>
+                                        <div class="panera-btn-delete" (click)="eliminarIngrediente(i)"></div>
+                                    </td>                                    
+                                </tr>
+                            </tbody>                                                           
+                        </table>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="panera-grid-pagination">
+                            <ngb-pagination [collectionSize]="ingredientes.length" #numPages [pageSize]="itemsPerPage" [(page)]="currentPage" (pageChange)="onPageChange(currentPage)"></ngb-pagination>
+                        </div>
+                    </div>
+                </div>  
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group" id="btns-guardar" [hidden]="!verBotones">
+                            <button id="btn-guardar" type="button" class="btn btn-primary panera" (click)="guardarReceta(successModal)">
+                                Registrar Receta
+                            </button>                                      
+                            <button type="button" class="btn btn-secondary " (click)="cancelar()">Cancelar</button>
+                        </div>
+                    </div>
+                </div>                                   
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<ng-template #successModal let-modal>
+    <div id="success_tic">
+        <div class="page-body">
+            <div id="svgSuccess">
+            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130.2 130.2">
+                <circle class="path circle" fill="none" stroke="#73AF55" stroke-width="6" stroke-miterlimit="10" cx="65.1" cy="65.1" r="62.1"/>
+                <polyline class="path check" fill="none" stroke="#73AF55" stroke-width="6" stroke-linecap="round" stroke-miterlimit="10" points="100.2,40.2 51.5,88.8 29.8,67.5 "/>
+            </svg>
+            </div>
+            <div id="svgError">
+            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130.2 130.2">
+                <circle class="path circle" fill="none" stroke="#D06079" stroke-width="6" stroke-miterlimit="10" cx="65.1" cy="65.1" r="62.1"/>
+                <line class="path line" fill="none" stroke="#D06079" stroke-width="6" stroke-linecap="round" stroke-miterlimit="10" x1="34.4" y1="37.9" x2="95.8" y2="92.3"/>
+                <line class="path line" fill="none" stroke="#D06079" stroke-width="6" stroke-linecap="round" stroke-miterlimit="10" x1="95.8" y1="38" x2="34.4" y2="92.2"/>
+            </svg>            
+            </div>
+            <p id="successMessage"></p>
+            <div style="text-align: center;">
+                <button type="button" class="btn btn-primary panera" (click)="modal.dismiss('Cross click')">Aceptar</button>
+            </div>
+            <br />
+        </div>
+    </div>
+</ng-template>    

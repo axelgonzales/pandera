@@ -1,0 +1,57 @@
+<section class="pull-main-content">
+    <div class="scroll-contenido">
+        <div class="content-body">
+            <div class="title-form">
+                <span>Stock de Intermedios</span>
+            </div>
+            <div class="box-wrap"> 
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label>Nro. de Pedido :</label>
+                            <input type="text" class="form-control"	id="numPedido" name="numPedido" [(ngModel)]="numPedido" maxlength="50" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group btns-bandeja">
+                            <button type="button" class="btn btn-primary panera" (click)="listarIntermediosStock()">Buscar</button>&nbsp;
+                        </div>
+                    </div>
+                </div>            
+                <div class="row">
+                    <div class="col-sm-12">
+                        <table class="panera-table">
+                            <thead>
+                                <tr>
+                                    <th width="5%">#</th>
+                                    <th width="35%">Nombre</th>
+                                    <th width="30%">Nro. Pedido</th>
+                                    <th width="15%">Costo</th>
+                                    <th width="15%">Cantidad</th>                                
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let intermedioStock of intermediosStock | slice: pageSize | slice: 0:itemsPerPage ; let i = index">
+                                    <td>{{ i + 1 }}</td>
+                                    <td>{{ intermedioStock.nomIntermedio }}</td>
+                                    <td>{{ intermedioStock.numPedido }}</td>
+                                    <td>{{ intermedioStock.costo }}</td>
+                                    <td>{{ intermedioStock.cantidad }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div  class="panera-grid-pagination">
+                            <ngb-pagination [collectionSize]="intermediosStock.length" #numPages [pageSize]="itemsPerPage" [(page)]="currentPage" (pageChange)="onPageChange(currentPage)"></ngb-pagination>
+                        </div>     
+                    </div>
+                </div>                
+            </div>
+        </div>
+    </div>
+</section>

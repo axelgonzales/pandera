@@ -1,0 +1,95 @@
+<section class="pull-main-content">
+    <div class="scroll-contenido">
+        <div class="content-body">
+            <div class="title-form">
+                <span>Salida de Intermedios</span>
+            </div>    
+            <div class="box-wrap">      
+                <div class="row">
+                    <!--<div class="col-sm-4">
+                        <div class="form-group">
+                            <label>Tipo Salida :</label>
+                            <select id="cmbTipoSalida" name="cmbTipoSalida" class="form-control" [(ngModel)]="idTipoSalida">
+                                <option value='0'>---- Todos ----</option>
+                                <option *ngFor="let tipoSalida of tipoSalidas" value="{{tipoSalida.id}}">{{tipoSalida.nombre}}</option>
+                            </select>
+                        </div>
+                    </div>-->
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label>Nro. Pedido</label>
+                            <input type="text" class="form-control" id="numPedido" name="numPedido" [(ngModel)]="numPedido" />
+                        </div>
+                    </div>                         
+                    <div class="col-sm-4">
+                        <div class="form-group">  
+                            <label>Fecha :</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" ngbDatepicker #d="ngbDatepicker" [(ngModel)]="fecha" readonly/>
+                                <button class="input-group-addon" (click)="d.toggle()" type="button">
+                                    <img src="../../../../../../assets/img/icons/calendar.png" style="width: 1.2rem; height: 1rem; cursor: pointer;"/>
+                                </button>
+                            </div>                              
+                        </div>
+                    </div>    
+                <!--</div>
+                <div class="row">-->
+                    <div class="col-sm-4">
+                        <div class="form-group">                     
+                            <label>Estado :</label>
+                            <select id="idEstado" name="idEstado" class="form-control" [(ngModel)]="idEstado">
+                                <option value='0'>---- Todos ----</option>
+                                <option *ngFor="let estado of estados" value="{{estado.id}}">
+                                    {{estado.nombre}}
+                                </option>
+                            </select>
+                        </div>
+                    </div>                                        
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group btns-bandeja" id="btns-bandeja">
+                            <button type="button" class="btn btn-primary panera" (click)="buscarSalidaIntermedios()">Buscar</button>&nbsp;
+                            <!-- <button type="button" class="btn btn-secondary" (click)="agregarSalidaIntermedio()">Nuevo</button> -->
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <table class="panera-table">
+                            <thead>
+                                <tr>
+                                    <th width="3%">#</th>
+                                    <th width="30%">Tipo Salida</th>
+                                    <th width="30%">Nro Pedido</th>
+                                    <th width="15%">Fecha Salida</th>
+                                    <th width="20%">Estado</th>
+                                    <th width="2%"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let intermedioSalida of intermedioSalidas | slice: pageSize | slice: 0:itemsPerPage ; let i = index " >
+                                    <td>{{ (((currentPage-1) * 10 ) + i) + 1 }}</td>
+                                    <td>{{intermedioSalida.nomTipo}}</td>
+                                    <td>{{intermedioSalida.numPedido}}</td>
+                                    <td>{{intermedioSalida.fechaSalida}}</td>
+                                    <td>{{intermedioSalida.nomEstado}}</td>
+                                    <td>
+                                        <div class="panera-btn-edit" (click)="editarSalidaIntermedio(intermedioSalida.id)"></div>                        
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="panera-grid-pagination">
+                            <ngb-pagination [collectionSize]="intermedioSalidas.length" #numPages [pageSize]="itemsPerPage" [(page)]="currentPage" (pageChange)="onPageChange(currentPage)"></ngb-pagination>
+                        </div>
+                    </div>
+                </div>              
+            </div>
+        </div>
+    </div>
+</section>

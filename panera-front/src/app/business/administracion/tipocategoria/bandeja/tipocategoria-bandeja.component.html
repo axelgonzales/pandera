@@ -1,0 +1,70 @@
+<section class="pull-main-content">
+    <div class="scroll-contenido">
+        <div class="content-body">
+            <div class="title-form">
+                <span>Bandeja de Tipos de Categorias</span>
+            </div>    
+            <div class="box-wrap">      
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label>Tipo :</label>
+                    <select id="cmbTipo" name="cmbTipo" class="form-control" [(ngModel)]="tipo">
+                        <option value="">---- Todos ----</option>
+                        <option value='P'>Producto</option>
+                        <option value='I'>Insumo</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label>Nombre :</label>
+                    <app-input-name type="text" id="nombre" 
+                    name="nombre" 
+                    [(ngModel)]="nombre"></app-input-name>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="form-group btns-bandeja">
+                    <button type="button" class="btn btn-primary panera" (click)="buscarTipoCategoria()">Buscar</button>&nbsp;
+                    <button type="button" class="btn btn-secondary" (click)="agregarTipoCategoria()">Nuevo</button>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <table class="panera-table">
+                    <thead>
+                        <tr>
+                            <th width="3%">#</th>                            
+                            <th width="30%">Tipo</th>
+                            <th width="65%">Nombre</th>
+                            <th width="2%"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let tipoCategoria of tipoCategorias | slice: pageSize | slice: 0:itemsPerPage ; let i = index " >
+                            <td>{{ (((currentPage-1) * 10 ) + i) + 1 }}</td>
+                            <td>{{ tipoCategoria.nomTipo }}</td>
+                            <td>{{ tipoCategoria.nombre }}</td>
+                            <td>
+                                <div class="panera-btn-edit" (click)="editarTipCategoria(tipoCategoria.id)"></div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div *ngIf="valor === true" class="panera-grid-pagination">
+                    <ngb-pagination [collectionSize]="tipoCategorias.length" #numPages [pageSize]="itemsPerPage" [(page)]="currentPage" (pageChange)="onPageChange(currentPage)"></ngb-pagination>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+</div>
+</section>
